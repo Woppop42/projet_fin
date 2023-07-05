@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container col-6 text-center">
+
+{{form_start(form)}}
+{{form_row(form.title)}}
+{{form_row(form.message)}}
+{{form_row(form.recipient)}}
+<button class="btn btn-outline-success" type="submit">Envoyer</button>
+{{form_end(form)}}
+
+
+</div>
+
+{% endblock %}

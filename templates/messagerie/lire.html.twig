@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-6 text-center">
+
+<h1 class="text-center">{{message.title}}</h1>
+<p class="text-center">De {{message.sender.pseudo }}</p>
+<p class="text-center">{{message.message}}</p>
+<p class="text-center">Le {{message.createdAt|date("d/m/Y")}}</p>
+
+
+</div>
+
+{% endblock %}

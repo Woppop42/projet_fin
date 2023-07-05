@@ -14,7 +14,7 @@
 						<p class="card-text">{{item.contenu}}</p>
 						<p class="card-link">{{item.user.pseudo}}</p>
 						<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
-                        <div></div>
+                        <div><a href="{{path('reponse_annonce', {id: item.id})}}" class="btn btn-outline-primary">Répondre</a></div>
 					</div>
 				</div>
 			{% endfor %}
