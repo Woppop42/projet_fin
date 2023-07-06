@@ -61,4 +61,13 @@ class JeuxController extends AbstractController
         ]);
 
     }
+    #[Route('/jeux/ajout/{id}', name: 'ajout_jeux')]
+    public function ajoutJeux(EntityManagerInterface $manager, Jeux $jeux)
+    {
+        $user = $this->getUser();
+        $user->addJeux($jeux);
+        $manager->persist($user);
+        $manager->flush();
+        return $this->redirectToRoute('liste_jeux');
+    }
 }

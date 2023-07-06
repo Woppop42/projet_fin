@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Form\ReponseType;
 use App\Entity\Messagerie;
+use App\Entity\Conversation;
 use App\Form\MessagerieType;
 use App\Repository\MessagerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,6 +76,7 @@ class MessagerieController extends AbstractController
     #[Route('/message/reponse/{id}', name: 'reponse_annonce')]
     public function reponseAnnonce(MessagerieRepository $repo, Request $req, EntityManagerInterface $manager, Message $message): Response 
     {
+        $conversation = new Conversation;
         $reponse = new Messagerie;
         $form = $this->createForm(ReponseType::class, $reponse);
         $form->handleRequest($req);
@@ -85,8 +87,17 @@ class MessagerieController extends AbstractController
             $reponse->setRecipient($message->getUser());
             $reponse->setSender($this->getUser());
             $reponse->setIsRead(0);
+            $conversation->setJeux($message->getJeux());
+            $conversation->setChercheur($this->getUser());
+            $conversation->setAnnonceur($message->getUser());
+            $conversation->setCreatedAt(new \DateTimeImmutable);
+            $conversation->setSujet($message->getTitre());
+            $conversation->addMessage($reponse);
+            $manager->persist($conversation);
             $manager->persist($reponse);
             $manager->flush();
+            $manager->flush();
+            
             return $this->redirectToRoute('liste_jeux');
         }
 

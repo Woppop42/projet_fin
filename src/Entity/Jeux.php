@@ -37,9 +37,17 @@ class Jeux
     #[ORM\OneToMany(mappedBy: 'jeux', targetEntity: Message::class)]
     private Collection $messages;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'jeux')]
+    private Collection $users;
+
+    #[ORM\OneToMany(mappedBy: 'jeux', targetEntity: Conversation::class)]
+    private Collection $conversations;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+        $this->users = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +151,63 @@ class Jeux
             // set the owning side to null (unless already changed)
             if ($message->getJeux() === $this) {
                 $message->setJeux(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addJeux($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeJeux($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): static
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations->add($conversation);
+            $conversation->setJeux($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): static
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getJeux() === $this) {
+                $conversation->setJeux(null);
             }
         }
 

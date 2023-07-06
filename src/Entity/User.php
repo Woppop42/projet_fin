@@ -48,11 +48,19 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\OneToMany(mappedBy: 'recipient', targetEntity: Messagerie::class, orphanRemoval: true)]
     private Collection $received;
 
+    #[ORM\ManyToMany(targetEntity: Jeux::class, inversedBy: 'users')]
+    private Collection $jeux;
+
+    #[ORM\OneToMany(mappedBy: 'annonceur', targetEntity: Conversation::class)]
+    private Collection $conversations;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
         $this->sent = new ArrayCollection();
         $this->received = new ArrayCollection();
+        $this->jeux = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -252,6 +260,60 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
             // set the owning side to null (unless already changed)
             if ($received->getRecipient() === $this) {
                 $received->setRecipient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Jeux>
+     */
+    public function getJeux(): Collection
+    {
+        return $this->jeux;
+    }
+
+    public function addJeux(Jeux $jeux): static
+    {
+        if (!$this->jeux->contains($jeux)) {
+            $this->jeux->add($jeux);
+        }
+
+        return $this;
+    }
+
+    public function removeJeux(Jeux $jeux): static
+    {
+        $this->jeux->removeElement($jeux);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): static
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations->add($conversation);
+            $conversation->setAnnonceur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): static
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getAnnonceur() === $this) {
+                $conversation->setAnnonceur(null);
             }
         }
 

@@ -34,6 +34,9 @@ class Messagerie
     #[ORM\JoinColumn(nullable: false)]
     private ?User $recipient = null;
 
+    #[ORM\ManyToOne(inversedBy: 'messages')]
+    private ?Conversation $conversation = null;
+
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable;
@@ -111,6 +114,18 @@ class Messagerie
     public function setRecipient(?User $recipient): static
     {
         $this->recipient = $recipient;
+
+        return $this;
+    }
+
+    public function getConversation(): ?Conversation
+    {
+        return $this->conversation;
+    }
+
+    public function setConversation(?Conversation $conversation): static
+    {
+        $this->conversation = $conversation;
 
         return $this;
     }

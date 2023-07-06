@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-12 text-center">
+<h1>Bienvenue {{app.user.pseudo}}</h1>
+<h2>La liste des jeux auxquels vous jouez :</h2>
+
+{% for item in jeux %}
+
+    <h3>{{item.nom}}</h3>    
+{% endfor %}
+</div>
+
+{% endblock %}
