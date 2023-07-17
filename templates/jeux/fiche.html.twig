@@ -6,15 +6,45 @@
 		<h1 class="text-info">{{jeux.nom}}</h1>
 		<img src="{{asset('images/' ~ jeux.photo)}}" alt="">
 		<div class="container col-6 text-center">
+				<a class="btn btn-primary m-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+  Filtrer
+</a>
+			<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasExampleLabel">Recherche par Tag</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<div>
+						Choisissez le filtre qui vous plaît.
+					</div>
+					<form action="{{path('tag_filtre', {id: jeux.id})}}" method='GET'>
+						<div class="form-group m-3">
+							<label for="exampleSelect1" class="form-label mt-4">Sélection par Tag</label>
+							<select class="form-select" id="exampleSelect1" name="tag">
+								{% for tag in tags %}
+									<option value="{{tag}}">{{tag}}</option>
+								{% endfor %}
+
+							</select>
+							<button class="btn btn-outline-success mt-3" type="submit">Filtrer</button>
+						</div>
+					</form>
+				</div>
+			</div>
 			{% for item in messages %}
 				<div class="card mb-3">
 					<div class="card-body">
 						<h4 class="card-title">{{item.titre}}</h4>
 						<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
 						<p class="card-text">{{item.contenu}}</p>
-						<p class="card-link">{{item.user.pseudo}}</p>
+						<p class="card-link">
+							<a href="{{path('visite_profil', {id: item.user.id})}}">{{item.user.pseudo}}</a>
+						</p>
 						<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
-                        <div><a href="{{path('reponse_annonce', {id: item.id})}}" class="btn btn-outline-primary">Répondre</a></div>
+						<div>
+							<a href="{{path('reponse_annonce', {id: item.id})}}" class="btn btn-outline-primary">Répondre</a>
+						</div>
 					</div>
 				</div>
 			{% endfor %}

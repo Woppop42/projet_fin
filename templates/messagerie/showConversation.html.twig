@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-12 text-center">
+<h1>{{conv.sujet}}</h1>
+<h2>{{conv.jeux}}</h2>
+{% for message in conv.messages %}
+    <h4>{{message.message}}</h4>
+    <p>De : {{message.sender.pseudo}}</p>
+{% endfor %}
+
+{{form_start(form)}}
+{{form_row(form.message)}}
+<button class="btn btn-outline-success mt-3">Envoyer</button>
+{{form_end(form)}}
+</div>
+
+{% endblock %}

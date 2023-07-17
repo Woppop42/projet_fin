@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-12 text-center">
+
+{{form_start(form)}}
+{{form_row(form.pseudo)}}
+{{form_row(form.photo_profil)}}
+<button class="btn btn-outline-warning mt-3 text-center">Modifier</button>
+{{form_end(form)}}
+
+
+</div>
+
+
+{% endblock %}

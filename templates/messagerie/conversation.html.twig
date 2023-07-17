@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-12 text-center">
+<h1>Liste de vos conversations</h1>
+
+{% for conv in convSend %}
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">{{conv.sujet}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{conv.chercheur.pseudo}}</h6>
+    <p class="card-text">Conversation commencée le {{conv.createdAt|date("d/m/Y")}}</p>
+    <a href="{{path('show_conversation', {id: conv.id})}}" class="btn btn-outline-info">Voir la conversation</a>
+  </div>
+</div>
+    
+{% endfor %}
+
+{% for conv2 in convReceived %}
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">{{conv2.sujet}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{conv2.annonceur.pseudo}}</h6>
+    <p class="card-text">Conversation commencée le {{conv2.createdAt|date('d/m/Y')}}</p>
+    <a href="{{path('show_conversation', {id: conv2.id})}}" class="btn btn-outline-info">Voir la conversation</a>
+  </div>
+</div>
+
+{% endfor %}
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container col-12 text-center">
+<h1>Modifier l'annonce</h1>
+{{form_start(form)}}
+{{form_row(form.titre)}}
+{{form_row(form.contenu)}}
+{{form_row(form.Tag)}}
+<button class="btn btn-outline-warning" type="submit">Modifier</button>
+{{form_end(form)}}
+</div>
+
+
+
+{% endblock %}

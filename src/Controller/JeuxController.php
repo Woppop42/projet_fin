@@ -31,12 +31,29 @@ class JeuxController extends AbstractController
             'jeux' => $jeux,
         ]);
     }
+    
     #[Route('/jeux/fiche/{id}', name: 'fiche_jeux')]
     #[Route('/message/nouveau', name: 'nouveau_message')]
     public function unJeux(JeuxRepository $repo, MessageRepository $mrepo, EntityManagerInterface $manager, Jeux $jeux, Request $req, $id): Response
     {
         $jeux = $repo->find($id);
         $messages = $mrepo->findBy(["jeux" => $jeux]);
+        $tags = [];
+        foreach($messages as $m)
+        {
+            $t = $m->getTag();
+            if($t)
+            {
+                $tagArray = explode(" ", $t);
+                foreach($tagArray as $tag)
+                {
+                    array_push($tags, $tag);
+                }
+
+            }
+        }
+        $cleanArray = array_unique($tags);
+        
         $message = new Message;
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($req);
@@ -57,7 +74,8 @@ class JeuxController extends AbstractController
         return $this->render('jeux/fiche.html.twig', [
             'form' => $form,
             'jeux' => $jeux,
-            'messages' => $messages
+            'messages' => $messages,
+            'tags' => $cleanArray
         ]);
 
     }
@@ -70,4 +88,29 @@ class JeuxController extends AbstractController
         $manager->flush();
         return $this->redirectToRoute('liste_jeux');
     }
+    #[Route('/jeux/filtre', name: 'liste_filtre')]
+    public function filtreJeux(JeuxRepository $repo, Request $req)
+    {
+        $genre = $req->query->get('genre');
+        $jeux = $repo->findBy(['genre' => $genre]);
+
+        return $this->render('jeux/listeFiltre.html.twig', [
+            'jeux' => $jeux,
+            'genre' => $genre,
+        ]);
+    }
+    #[Route('/jeux/tagFiltre/{id}', name: 'tag_filtre')]
+    public function filtreMessage(Request $req, MessageRepository $repo, Jeux $jeux)
+    {
+            $tag = $req->query->get('tag');
+            $messages = $repo->findBy(['jeux' => $jeux], ['Tag' => $tag]);
+
+
+            return $this->render('/jeux/filtreMessage.html.twig', [
+                'messages' => $filterMessages,
+
+            ]);
+
+    }
+    
 }

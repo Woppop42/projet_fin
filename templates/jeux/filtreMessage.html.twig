@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<div class="container col-12 text-center">
+{% for message in messages %}
+    <div class="card mb-3">
+					<div class="card-body">
+						<h4 class="card-title">{{item.titre}}</h4>
+						<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
+						<p class="card-text">{{item.contenu}}</p>
+						<p class="card-link">
+							<a href="{{path('visite_profil', {id: item.user.id})}}">{{item.user.pseudo}}</a>
+						</p>
+						<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
+						<div>
+							<a href="{{path('reponse_annonce', {id: item.id})}}" class="btn btn-outline-primary">Répondre</a>
+						</div>
+					</div>
+				</div>
+{% endfor %}
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container text-center col-12">
+		<h1>Liste de mes annonces</h1>
+
+		{% for item in app.user.messages %}
+			<div class="card mb-3">
+				<div class="card-body">
+					<h4 class="card-title">{{item.titre}}</h4>
+					<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
+					<p class="card-text">{{item.contenu}}</p>
+					<p class="card-link">
+						<a href="{{path('visite_profil', {id: item.user.id})}}">{{item.user.pseudo}}</a>
+					</p>
+					<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
+					<div>
+						<a href="{{path('edit_annonce', {id: item.id})}}" class="btn btn-outline-primary">Modifier</a>
+						<a href="{{path('delete_annonce', {id: item.id})}}" class="btn btn-outline-danger">Supprimer</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+
+
+	</div>
+
+{% endblock %}

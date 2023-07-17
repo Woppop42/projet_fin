@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-12 text-center">
+<h1>Envoyez un message à {{user.pseudo}}</h1>
+
+{{form_start(form)}}
+{{form_row(form.title)}}
+{{form_row(form.message)}}
+<button type="submit" class="btn btn-outline-primary mt-3">Envoyer</button>
+{{form_end(form)}}
+</div>
+
+
+{% endblock %}

@@ -3,16 +3,24 @@
 namespace App\Controller;
 
 use LogicException;
+use App\Entity\Jeux;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\Message;
+use App\Form\MessageType;
+use App\Form\UpdateProfilType;
+use App\Form\UpdateMessageType;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
+use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -35,19 +43,6 @@ class UserController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            //Email : 
-            $email = (new Email())
-            ->from('hello@example.com')
-            ->to($user->getEmail())
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Inscription réussie')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
-
-        $mailer->send($email);
             $this->addFlash('success', 'Félicitations, vous êtes bien inscrit ! ');
             return $this->redirectToRoute('app_jeux');
         }
@@ -80,5 +75,104 @@ class UserController extends AbstractController
         return $this->render('user/profil.html.twig', [
             'jeux' => $jeux,
         ]);
+    }
+    #[Route('/deleteJeuxFromPorfile/{id}', name: 'delete_jeux_profile')]
+    public function deleteJeuxFromProfile(User $user, EntityManagerInterface $manager, Jeux $jeux)
+    {
+        $user = $this->getUser();
+        $modif = $user->removeJeux($jeux);
+        $manager->persist($modif);
+        $manager->flush();
+
+        return $this->redirectToRoute('profil_perso', ['id' => $user->getId()]);
+    }
+    #[Route('profil/update/{id}', name: 'modif_profil')]
+    public function modifProfil(EntityManagerInterface $manager, Request $req, SluggerInterface $slugger, User $user)
+    {
+        $form = $this->createForm(UpdateProfilType::class, $user);
+        $form->handleRequest($req);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $brochureFile = $form->get('photo_profil')->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($brochureFile) 
+            {
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $brochureFile->move(
+                        $this->getParameter('photos_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $user->setPhotoProfil($newFilename);
+            }
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute('profil_perso', ['id' => $user->getId()]);
+        }
+
+        return $this->render('user/modifProfil.html.twig', [
+            'form' => $form,
+        ]);
+    }
+    #[Route('/visiteProfil/{id}', name: 'visite_profil')]
+    public function visiteProfil(User $user): Response
+    {
+
+
+        return $this->render('user/visiteProfil.html.twig', [
+            'user' => $user,
+        ]);
+    }
+    #[Route('/mesAnnonces/{id}', name: 'mes_annonces')]
+    public function mesAnnonces()
+    {
+
+
+        return $this->render('user/mesAnnonces.html.twig', [
+
+        ]);
+    }
+    #[Route('/mesAnnonces/edit/{id}', name: 'edit_annonce')]
+    public function editAnnonce(EntityManagerInterface $manager, MessageRepository $repo, Request $req, Message $message)
+    {
+
+        $form = $this->createForm(UpdateMessageType::class, $message);
+        $form->handleRequest($req);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($message);
+            $manager->flush();
+
+            return $this->redirectToRoute('mes_annonces', ['id' => $this->getUser()->getId()]);
+        }
+
+        return $this->render('/user/editAnnonce.html.twig', [
+            'form' => $form,
+            'message' => $message
+        ]);
+    }
+    #[Route('/mesAnnonces/delete/{id}', name: 'delete_annonce')]
+    public function deleteAnnonce(EntityManagerInterface $manager, Message $message)
+    {
+        $manager->remove($message);
+        $manager->flush();
+
+        return $this->redirectToRoute('mes_annonces', ['id' => $this->getUser()->getId()]);
     }
 }

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container col-12 text-center">
+<h1>Liste des jeux {{genre}}</h1>
+
+<div class="row">
+			{% for jeu in jeux %}
+				<div class="col mb-4">
+					<div class="card mr-4" style="width: 18rem; height: 40rem;">
+						<img src="{{ asset('images/' ~ jeu.photo) }}" class="card-img-top" alt="...">
+						<div class="card-body d-flex flex-column">
+							<h5 class="card-title">{{ jeu.nom }}</h5>
+							<p class="card-text flex-grow-1">{{ jeu.presentation }}</p>
+							<p class="mx-auto">{{ jeu.messages|length }}
+								recherches de groupe</p>
+							<div class="list-group-item">{{ jeu.studio }}</div>
+							<div class="list-group-item">{{ jeu.genre }}</div>
+							<div class="list-group-item">sorti le
+								{{ jeu.dateSortie|date("d/m/Y") }}</div>
+							<a href="{{path('fiche_jeux', {id: jeu.id})}}" class="btn btn-outline-info">Voir les messages</a>
+							<a href="{{path('ajout_jeux', {id: jeu.id})}}" class="btn btn-outline-success">Ajouter à la liste</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+</div>
+
+{% endblock %}

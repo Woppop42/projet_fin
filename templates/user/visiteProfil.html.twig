@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-12 text-center">
+
+<h1>Bienvenue sur le profil de {{user.pseudo}}</h1>
+
+<h2>Liste des jeux auxquels {{user.pseudo}} joue: </h2>
+{% for item in user.jeux %}
+    <p>{{item.nom}}</p>
+{% endfor %}
+
+<a href="{{path('contact_user', {id: user.id})}}" class="btn btn-outline-info">Envoyer un message</a>
+</div>
+
+
+
+{% endblock %}
