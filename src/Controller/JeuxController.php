@@ -103,7 +103,20 @@ class JeuxController extends AbstractController
     public function filtreMessage(Request $req, MessageRepository $repo, Jeux $jeux)
     {
             $tag = $req->query->get('tag');
-            $messages = $repo->findBy(['jeux' => $jeux], ['Tag' => $tag]);
+            $tags = [];
+            $filterMessages = [];
+            $messages = $repo->findBy(['jeux' => $jeux ]);
+            foreach($messages as $message)
+            {
+                $t = $message->getTag();
+                $tags = explode(" ", $t);
+  
+                if(in_array($tag, $tags))
+                {
+                    array_push($filterMessages, $message);
+                }
+            }
+            
 
 
             return $this->render('/jeux/filtreMessage.html.twig', [
