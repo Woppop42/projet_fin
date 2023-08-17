@@ -1,34 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 {% block body %}
-<div class="container text-center">
+	<div class="container text-center">
+		<div class="d-flex justify-content-end">
+			<div class="text-content">
 
+				<h1 class="text-center text-dark">Rencontre ton futur partenaire</h1>
 
-<h1 class="text-center text-light">Rencontre ton futur partenaire</h1>
+				<p class="text-center text-info">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis labore, aspernatur veniam sunt ratione adipisci. Optio non possimus ipsum sequi fugiat fugit facilis cum, pariatur iste neque esse unde odit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis cumque fugit, ullam tempore cum tempora, voluptatibus fugiat ea rem aliquam perferendis! Magni, quidem perferendis? Consectetur autem praesentium nobis iure doloremque!
+					Ducimus dolorem pariatur distinctio molestiae vitae impedit quasi, eum cupiditate enim consequuntur ullam architecto iure autem minus perspiciatis itaque porro. Suscipit eligendi nisi enim praesentium dolorem adipisci aliquam aut omnis.
+					Ea, iusto nesciunt? Vitae est nam, illo commodi obcaecati et. Recusandae itaque dolorem qui quibusdam, corporis consequatur modi labore sint officiis quas, fuga nostrum voluptatum, iure natus aspernatur. Nulla, sapiente!
+					Repellat animi doloremque eos earum officiis, hic fuga sapiente numquam rerum distinctio quasi exercitationem ea obcaecati voluptatibus pariatur necessitatibus commodi laudantium accusantium ad libero! Expedita est sed iste asperiores repellendus!
+					Perspiciatis ex obcaecati minus. Ipsa suscipit porro culpa omnis assumenda, tempora minus autem deserunt enim voluptate doloremque voluptas nobis quas dolorum cupiditate sunt laudantium. Autem distinctio cupiditate commodi quos harum.
+					Minus, quo delectus in suscipit repellat maiores laudantium iure tenetur possimus sit earum mollitia impedit voluptatem animi quam id nihil rerum, quibusdam aliquid. Incidunt omnis eligendi saepe ut fugit neque?
+					Delectus optio, facere impedit quod laboriosam saepe eum ex modi ab iure, vitae hic eos autem accusamus quos veritatis natus ad laudantium voluptatem ratione expedita cum? Doloribus odio quos incidunt.
+				</p>
+				{% for message in app.flashes('success') %}
+					<div class="alert alert-success text-center">{{message}}</div>
+				{% endfor %}
+				{% if app.user %}
+					<p>
+						Bienvenue !
+					</p>
+				{% else %}
+					<a href="{{path('inscription')}}" class="btn btn-outline-danger">Inscris-toi</a>
 
-<p class="text-center text-info">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis labore, aspernatur veniam sunt ratione adipisci. Optio non possimus ipsum sequi fugiat fugit facilis cum, pariatur iste neque esse unde odit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis cumque fugit, ullam tempore cum tempora, voluptatibus fugiat ea rem aliquam perferendis! Magni, quidem perferendis? Consectetur autem praesentium nobis iure doloremque!
-Ducimus dolorem pariatur distinctio molestiae vitae impedit quasi, eum cupiditate enim consequuntur ullam architecto iure autem minus perspiciatis itaque porro. Suscipit eligendi nisi enim praesentium dolorem adipisci aliquam aut omnis.
-Ea, iusto nesciunt? Vitae est nam, illo commodi obcaecati et. Recusandae itaque dolorem qui quibusdam, corporis consequatur modi labore sint officiis quas, fuga nostrum voluptatum, iure natus aspernatur. Nulla, sapiente!
-Repellat animi doloremque eos earum officiis, hic fuga sapiente numquam rerum distinctio quasi exercitationem ea obcaecati voluptatibus pariatur necessitatibus commodi laudantium accusantium ad libero! Expedita est sed iste asperiores repellendus!
-Perspiciatis ex obcaecati minus. Ipsa suscipit porro culpa omnis assumenda, tempora minus autem deserunt enim voluptate doloremque voluptas nobis quas dolorum cupiditate sunt laudantium. Autem distinctio cupiditate commodi quos harum.
-Minus, quo delectus in suscipit repellat maiores laudantium iure tenetur possimus sit earum mollitia impedit voluptatem animi quam id nihil rerum, quibusdam aliquid. Incidunt omnis eligendi saepe ut fugit neque?
-Delectus optio, facere impedit quod laboriosam saepe eum ex modi ab iure, vitae hic eos autem accusamus quos veritatis natus ad laudantium voluptatem ratione expedita cum? Doloribus odio quos incidunt.
-</p>
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success text-center">{{message}}</div>    
-{% endfor %}    
-{% if app.user %}
-<p> Bienvenue ! </p>
-{% else %}
-<a href="{{path('inscription')}}" class="btn btn-outline-danger">Inscris-toi</a>
-    
-{% endif %}
+				{% endif %}
 
-</div>
+			</div>
 
-
+		</div>
+	</div>
 
 
 {% endblock %}

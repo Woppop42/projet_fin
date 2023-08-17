@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-12 text-center">
+	<h1 class="text-center">Gestion des jeux</h1>
+
+	<table class="table table-dark">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nom</th>
+				<th>Genre</th>
+				<th>Studio</th>
+				<th>Date de sortie</th>
+				<th>Nombre de messages</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				{% for jeu in jeux %}
+					<tr>
+						<td>{{jeu.id}}</td>
+						<td>{{jeu.nom}}</td>
+						<td>{{jeu.genre}}</td>
+						<td>{{jeu.studio}}</td>
+						<td>{{jeu.dateSortie|date("d/m/Y")}}</td>
+						<td>{{jeu.messages.count}}</td>
+						<td>
+							<a href="" class="btn btn-outline-info">Voir le détails</a>
+							<a href="" class="btn btn-outline-warning">Modifier les infos</a>
+
+						</td>
+					</tr>
+				</div>
+			</tr>
+		</tbody>
+	</td>
+</tr>{% endfor %}</tr></tbody></table><!-- Button trigger modal --><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Créer un jeux</button><!-- Modal --><div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header">
+<h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Créer un jeux</h1>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body">
+{{form_start(form)}}
+{{form_row(form.nom)}}
+{{form_row(form.studio)}}
+{{form_row(form.date_sortie)}}
+{{form_row(form.genre)}}
+{{form_row(form.photo)}}
+{{form_row(form.presentation)}}
+<button class=" btn btn-outline-success" type="submit">Créer</button>
+{{form_end(form)}}</div></div></div></div></div>{% endblock %}

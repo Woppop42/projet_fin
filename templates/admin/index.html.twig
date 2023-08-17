@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-12">
+<h1 class="text-center">Back Office</h1>
+
+<div class="col text-center">
+<a href="{{path('admin_user')}}" class="btn btn-outline-info">Utilisateurs</a>
+<a href="{{path('admin_jeux')}}" class="btn btn-outline-info">Jeux</a>
+<a href="" class="btn btn-outline-info"></a>
+</div>
+
+</div>
+
+{% endblock %}

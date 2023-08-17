@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container col-12 text-center">
+<h1 class="text-center">Modification de {{user.pseudo}}</h1>
+
+{{form_start(form)}}
+{{form_row(form.pseudo)}}
+{{form_row(form.roles)}}
+<button class="btn btn-outline-warning" type="submit">Modifier</button>
+{{form_end(form)}}
+
+</div>
+
+
+{% endblock %}
