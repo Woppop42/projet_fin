@@ -1,15 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block stylesheets %}
+	<style>
+		.background-image {
+			background-image: url('{{asset('images/loginpage.jpg')}}');
+			background-size: cover;
+			background-position: center;
+			width: 100vw;
+			height: 100vh;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
 
+		.login-container {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			height: 100vh;
+			margin-right: 20px;
+		}
+
+		.login-form {
+			background-color: white;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			height: 835px;
+			width: 535px;
+			display: flex;
+			flex-direction: column;
+			align-items: center; /* Alignement vertical au centre */
+			justify-content: center; /* Alignement horizontal au centre */
+		}
+		.login-button {
+			display: flex;
+			flex-direction: flex-end;
+			align-items: center;
+			justify-content: center;
+			margin-top: 50px;
+		}
+		.no-account {
+			display: flex;
+            flex-direction: column; /* Ajustement pour aligner la balise <p> à gauche */
+			margin: 80px;
+            align-self: flex-start; /* Alignement de la balise <p> à gauche */
+		}
+	</style>
+{% endblock %}
 {% block body %}
-<div class="container col-6 mt-3 text-center">
-
-{{form_start(form)}}
-{{form_row(form.email)}}
-{{form_row(form.pseudo)}}
-{{form_row(form.password)}}
-<button class="btn btn-outline-success mt-3">Inscripiton</button>
-{{form_end(form)}}
-</div>
+	<div class="background-image"></div>
+	<div class="login-container">
+		<div class="login-form">
+            <h1 class="h3 m-3">S'inscrire</h1>
+			{{form_start(form)}}
+			{{form_row(form.email)}}
+			{{form_row(form.pseudo)}}
+			{{form_row(form.password)}}
+			<div class="text-center"><button class="btn btn-outline-success mt-3">Inscripiton</button></div>
+            <div class="no-account">
+            <p>Aucune information ne sera ni partagée, ni vendue à un tiers.</p>
+            </div>
+			{{form_end(form)}}
+		</div>
+	</div>
 {% endblock %}

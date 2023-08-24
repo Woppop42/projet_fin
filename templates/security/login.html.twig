@@ -1,51 +1,82 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <style>
+        .background-image {
+            background-image: url('{{asset('images/loginpage.jpg')}}');
+            background-size: cover;
+            background-position: center;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 100vh;
+            margin-right: 20px;
+        }
+
+        .login-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            height: 835px;
+            width: 535px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Alignement vertical au centre */
+            justify-content: center; /* Alignement horizontal au centre */
+        }
+          .full-width-input {
+        width: 100%;
+
+        }   
+        .login-button{
+            display: flex;
+            flex-direction: flex-end;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .no-account {
+            display: flex;
+            margin: 80px;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-<div class="background-image">
-<img src="" alt="">
-</div>
-<div class="container col-6 text-center">
-<form method="post" novalidate>
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+<div class="background-image"></div>
+<div class="login-container">
+    <div class="login-form">
+        <form method="post" novalidate>
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            
+            <h1 class="h3 m-3">Se connecter</h1>
+            <label for="inputEmail" class="text-black m-3">Email</label>
+            <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control my-auto full-width-input" autocomplete="email" required autofocus>
+            <label for="inputPassword" class="text-black m-3">Mot de passe</label>
+            <input type="password" name="_password" id="inputPassword" class="form-control full-width-input" autocomplete="current-password" required>
 
-    {# {% if app.user %}
-        <div class="mb-3">
-            Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('logout') }}">Logout</a>
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-lg btn-primary login-button" type="submit">
+                Se connecter
+            </button>
+        </form>
+        <div class="no-account">
+            <p>Vous n'avez pas encore de compte ? <a href="{{path('inscription')}}">S'inscrire</a></p>
         </div>
-    {% endif %} #}
-
-    <h1 class="h3 m-3">Entrez vos identifiants</h1>
-    <label for="inputEmail" class="text-light m-3">Email</label>
-    <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control my-auto" autocomplete="email" required autofocus>
-    <label for="inputPassword" class="text-light m-3">Mot de passe</label>
-    <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary m-3" type="submit">
-        Se connecter
-    </button>
-</form>
-
-
-
+    </div>
 </div>
-
-
-
 {% endblock %}
