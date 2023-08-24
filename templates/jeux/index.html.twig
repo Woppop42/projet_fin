@@ -4,46 +4,123 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container text-center">
-		<div class="d-flex justify-content-end">
-			<div class="text-content">
-
-				<h1 class="text-center text-dark">Rencontre ton futur partenaire</h1>
-
-				<p class="text-center text-info">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis labore, aspernatur veniam sunt ratione adipisci. Optio non possimus ipsum sequi fugiat fugit facilis cum, pariatur iste neque esse unde odit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis cumque fugit, ullam tempore cum tempora, voluptatibus fugiat ea rem aliquam perferendis! Magni, quidem perferendis? Consectetur autem praesentium nobis iure doloremque!
-					Ducimus dolorem pariatur distinctio molestiae vitae impedit quasi, eum cupiditate enim consequuntur ullam architecto iure autem minus perspiciatis itaque porro. Suscipit eligendi nisi enim praesentium dolorem adipisci aliquam aut omnis.
-					Ea, iusto nesciunt? Vitae est nam, illo commodi obcaecati et. Recusandae itaque dolorem qui quibusdam, corporis consequatur modi labore sint officiis quas, fuga nostrum voluptatum, iure natus aspernatur. Nulla, sapiente!
-					Repellat animi doloremque eos earum officiis, hic fuga sapiente numquam rerum distinctio quasi exercitationem ea obcaecati voluptatibus pariatur necessitatibus commodi laudantium accusantium ad libero! Expedita est sed iste asperiores repellendus!
-					Perspiciatis ex obcaecati minus. Ipsa suscipit porro culpa omnis assumenda, tempora minus autem deserunt enim voluptate doloremque voluptas nobis quas dolorum cupiditate sunt laudantium. Autem distinctio cupiditate commodi quos harum.
-					Minus, quo delectus in suscipit repellat maiores laudantium iure tenetur possimus sit earum mollitia impedit voluptatem animi quam id nihil rerum, quibusdam aliquid. Incidunt omnis eligendi saepe ut fugit neque?
-					Delectus optio, facere impedit quod laboriosam saepe eum ex modi ab iure, vitae hic eos autem accusamus quos veritatis natus ad laudantium voluptatem ratione expedita cum? Doloribus odio quos incidunt.
-				</p>
-				{% for message in app.flashes('success') %}
-					<div class="alert alert-success text-center">{{message}}</div>
-				{% endfor %}
-				{% if app.user %}
-					<p>
-						Bienvenue !
-					</p>
-				{% else %}
-					<a href="{{path('inscription')}}" class="btn btn-outline-danger">Inscris-toi</a>
-
-				{% endif %}
-
+	<style>
+		body {
+			overflow-x: hidden; /* Empêche le défilement horizontal et vertical */
+		}
+	</style>
+	<div class="container-fluid p-0">
+		<div class="row">
+			<div class="col-md-5 d-flex flex-column align-items-center">
+				<div class="image-container rounded-3 overflow-hidden">
+					<img src="{{asset('images/frontpage.jpg')}}" alt="" style="max-width: 100%; max-height: 90vh;">
+				</div>
 			</div>
 
+			<div class="col-md-7">
+				<nav class="navbar bg-secondary" data-bs-theme="dark" style="margin-top: 20px; width: 100%;">
+					<div class="container-fluid">
+						{% if app.user %}
+							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
+						{% endif %}
+						<ul class="navbar-nav flex-row">
+							<li class="nav-item me-3">
+								<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
+									<span class="visually-hidden">(current)</span>
+								</a>
+							</li>
+							{% if app.user %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
+								</li>
+							{% else %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('login')}}">Se connecter</a>
+								</li>
+							{% endif %}
+							<li class="nav-item me-3">
+								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
+							</li>
+							<li class="nav-item me-3">
+								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li class="nav-item dropdown">
+									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</nav>
+
+				<div class="container text-center">
+					<div class="d-flex justify-content-end">
+						<div class="text-content">
+							<h1 class="text-center text-dark">Rencontre ton futur partenaire</h1>
+							<p class="text-center text-info">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis labore, aspernatur veniam sunt ratione adipisci...</p>
+							{% for message in app.flashes('success') %}
+								<div class="alert alert-success text-center">{{message}}</div>
+							{% endfor %}
+							{% if app.user %}
+								<p>
+									Bienvenue !
+								</p>
+							{% else %}
+								<a href="{{path('inscription')}}" class="btn btn-outline-danger">Inscris-toi</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+
+		<div class="container col-6 text-center mt-3">
+			<div class="row">
+				<div class="col">1</div>
+				<div class="col">2</div>
+				<div class="col">3</div>
+			</div>
+			<div class="row">
+				<div class="col">Inscris-toi</div>
+				<div class="col">Cherche tes jeux et trouve ton crew</div>
+				<div class="col">Passe les meilleurs games de ta vie</div>
+			</div>
+			<a href="" class="btn btn-outline-success text-center">Inscription</a>
+		</div>
+
+			<div class="container text-center">
+			
+			<h3 class="m-3">Un échantillon des jeux sur lesquels tu peux trouver des camarades</h3>
+
+				<div class="col d-flex">
+					<img src="{{asset('images/d4.jpg')}}" alt="" style="length: 778px; height: 483px; margin: 10px;">
+					<img src="{{asset('images/apex.jpg')}}" alt="" style="length: 450px; height: 343px; margin: 10px;">
+				</div>
+				<div class="col d-flex">
+				<img src="{{asset('images/gta5.jpg')}}" alt="" style="length: 685px; height: 350px; margin: 10px;">
+				<img src="{{asset('images/ow2.jpg')}}" alt="" style="length: 350px; height: 290px; margin: 10px;">
+				<img src="{{asset('images/td1.jpg')}}" alt="" style="width: 250px; height: 450px; object-fit: cover; object-position: top;">
+
+				
+				</div>	
+				<div class="container text-center">
+				
+				<a href="" class="btn btn-outline-danger text-center">Liste des jeux</a>
+				</div>
+			</div>
+
+
 	</div>
+	<footer style="height: 350px; background-color: #D5D5D5; margin-top: 25px;">
+	<div class="container col-4 m-3 text-center my-auto">
+		<div class="row m-3"></div>
+		<div class="row m-3"></div>
+		<p>À propos</p>
+		<p>Mentions légales</p>
+		<p>FAQ</p>
+	
+	</div>
+	</footer>
 
-    <div class="container col-6 text-center">
-
-        <div class="row">
-            <div class="col">1</div>
-            <div class="col">1</div>
-            <div class="col">1</div>
-        </div>
-    
-    
-    </div>
 
 {% endblock %}

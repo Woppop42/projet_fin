@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
@@ -10,50 +10,6 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/morph/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="{{ asset('css/style.css') }}"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
-<div class="container-fluid p-0">
-    <div class="row">
-        <div class="col-md-5">
-            <aside>
-                <div class="image-container rounded-3 overflow-hidden" style="width: 600px; height: calc(100vh - 80px);">
-                    <img src="{{asset('images/frontpage.jpg')}}" alt="" style="width: 100%; height: 100%;">
-                </div>
-            </aside>
-        </div>
-        <div class="col-md-7">
-            <nav class="navbar bg-secondary" data-bs-theme="dark" style="margin-top: 20px; width: 100%;">
-                <div class="container-fluid">
-                    {% if app.user %}
-                        <a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
-                    {% endif %}
-                    <ul class="navbar-nav flex-row">
-                        <li class="nav-item me-3">
-                            <a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                        {% if app.user %}
-                            <li class="nav-item me-3">
-                                <a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item me-3">
-                                <a class="nav-link text-dark" href="{{path('login')}}">Se connecter</a>
-                            </li>
-                        {% endif %}
-                        <li class="nav-item me-3">
-                            <a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
-                        </li>
-                        <li class="nav-item me-3">
-                            <a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
-                        </li>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </nav>
 
             {% block body %}
 			
