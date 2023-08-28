@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Plateforme;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -33,7 +35,15 @@ class UpdateProfilType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Veuillez télécharger un fichier PDF, PNG ou JPG valide.'])
                 ]
-            ])
+            ])  
+            ->add('plateformes', EntityType::class, [
+                'class' => Plateforme::class,
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'expanded' => true,
+                
+            ]
+            )
             #->add('titres')
             #->add('date_inscription')
             #->add('jeux')

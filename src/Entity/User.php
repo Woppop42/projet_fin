@@ -54,6 +54,10 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\OneToMany(mappedBy: 'annonceur', targetEntity: Conversation::class)]
     private Collection $conversations;
 
+    #[ORM\ManyToMany(targetEntity: Plateforme::class, mappedBy: 'user')]
+    private Collection $plateformes;
+
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -61,6 +65,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         $this->received = new ArrayCollection();
         $this->jeux = new ArrayCollection();
         $this->conversations = new ArrayCollection();
+        $this->plateformes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -315,6 +320,37 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
             if ($conversation->getAnnonceur() === $this) {
                 $conversation->setAnnonceur(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getPlateformes(): array
+    {
+        return $this->plateformes->toArray();
+    }
+
+    public function setPlateformes(?array $plateformes): static
+    {
+        $this->plateformes = $plateformes;
+
+        return $this;
+    }
+
+    public function addPlateforme(Plateforme $plateforme): static
+    {
+        if (!$this->plateformes->contains($plateforme)) {
+            $this->plateformes->add($plateforme);
+            $plateforme->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlateforme(Plateforme $plateforme): static
+    {
+        if ($this->plateformes->removeElement($plateforme)) {
+            $plateforme->removeUser($this);
         }
 
         return $this;
