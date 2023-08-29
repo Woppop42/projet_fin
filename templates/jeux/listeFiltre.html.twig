@@ -1,5 +1,42 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+<div class="profile-background-color">
+		<div class="container-wrapper">
+			<div class="container col-12 text-center" id="container">
+				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
+					<div class="container-fluid">
+						{% if app.user %}
+							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
+						{% endif %}
+						<ul class="navbar-nav flex-row">
+							<li class="nav-item me-3">
+								<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
+									<span class="visually-hidden">(current)</span>
+								</a>
+							</li>
+							{% if app.user %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
+								</li>
+							{% else %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('login')}}">Se connecter</a>
+								</li>
+							{% endif %}
+							<li class="nav-item me-3">
+								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
+							</li>
+							<li class="nav-item me-3">
+								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li class="nav-item dropdown">
+									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</nav>
 <div class="container col-12 text-center">
 <h1>Liste des jeux {{genre}}</h1>
 
@@ -17,7 +54,7 @@
 							<div class="list-group-item">{{ jeu.genre }}</div>
 							<div class="list-group-item">sorti le
 								{{ jeu.dateSortie|date("d/m/Y") }}</div>
-							<a href="{{path('fiche_jeux', {id: jeu.id})}}" class="btn btn-outline-info">Voir les messages</a>
+							<a href="{{path('fiche_jeux', {id: jeu.id})}}" class="btn btn-outline-info mb-2">Voir les messages</a>
 							<a href="{{path('ajout_jeux', {id: jeu.id})}}" class="btn btn-outline-success">Ajouter à la liste</a>
 						</div>
 					</div>

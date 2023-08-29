@@ -5,7 +5,10 @@
 {% for item in messages %}
     <div class="card mb-3">
 					<div class="card-body">
+					<div class="row">
+						<a href="" id="retour"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
 						<h4 class="card-title">{{item.titre}}</h4>
+					</div>
 						<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
 						<p class="card-text">{{item.contenu}}</p>
 						<p class="card-link">

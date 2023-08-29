@@ -1,6 +1,63 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<style>
+		#container {
+			background-color: white;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			height: 835px;
+			width: 80%;
+			display: flex;
+			flex-direction: column;
+			align-items: center; /* Alignement vertical au centre */
+			justify-content: center; /* Alignement horizontal au centre */
+			position: relative;
+		}
+		.navbar {
+			position: absolute;
+			top: 0; /* Positionnement en haut de la container */
+		}
+	</style>
 
+{% endblock %}
 {% block body %}
+<div class="profile-background-color">
+		<div class="container-wrapper">
+			<div class="container col-12 text-center" id="container">
+				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
+					<div class="container-fluid">
+						{% if app.user %}
+							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
+						{% endif %}
+						<ul class="navbar-nav flex-row">
+							<li class="nav-item me-3">
+								<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
+									<span class="visually-hidden">(current)</span>
+								</a>
+							</li>
+							{% if app.user %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
+								</li>
+							{% else %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('login')}}">Se connecter</a>
+								</li>
+							{% endif %}
+							<li class="nav-item me-3">
+								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
+							</li>
+							<li class="nav-item me-3">
+								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li class="nav-item dropdown">
+									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</nav>
 <section class="container">
 <div class="row">
 <div class="col">
@@ -17,16 +74,16 @@
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu de messagerie</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
     <div>
-      Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+      Toutes les options de messagerie.
     </div>
     <div class="dropdown mt-3">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-        Dropdown button
+        Messagerie
       </button>
       <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="{{path('received_message')}}">Boite de réception</a></li>
@@ -37,5 +94,5 @@
     </div>
   </div>
 </div>
-
+</div>
 {% endblock %}
