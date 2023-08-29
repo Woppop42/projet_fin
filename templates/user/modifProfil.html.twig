@@ -1,8 +1,28 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<style>
+        body {
+            background-color : #685AFC;
+        }
+        .container {
 
+	        background-color: white;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			height: 835px;
+			width: 80%;
+			display: flex;
+			flex-direction: column;
+			align-items: center; /* Alignement vertical au centre */
+			justify-content: center; /* Alignement horizontal au centre */
+
+        }
+</style>
+
+{% endblock %}
 {% block body %}
 <div class="container col-12 text-center">
-
+<h2 class="text-center">Modifier son profil</h2>
 {{form_start(form)}}
 {{form_row(form.pseudo)}}
 {{form_row(form.photo_profil)}}

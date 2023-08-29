@@ -72,11 +72,13 @@ class UserController extends AbstractController
     public function profilPerso(UserRepository $repo)
     {
         $jeux = $this->getUser()->getJeux();
+        $plateformes = $this->getUser()->getPlateformes();
         return $this->render('user/profil.html.twig', [
             'jeux' => $jeux,
+            'plateformes' => $plateformes,
         ]);
     }
-    #[Route('/deleteJeuxFromPorfile/{id}', name: 'delete_jeux_profile')]
+    #[Route('/deleteJeuxFromProfile/{id}', name: 'delete_jeux_profile')]
     public function deleteJeuxFromProfile(User $user, EntityManagerInterface $manager, Jeux $jeux)
     {
         $user = $this->getUser();
