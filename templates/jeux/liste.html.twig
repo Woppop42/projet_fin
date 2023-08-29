@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<style>
+a {
+	display : flex;
+	position: flex-end;
+}
 
+</style>
+
+{% endblock %}
 {% block body %}
 <div class="profile-background-color">
 		<div class="container-wrapper">
@@ -39,6 +48,7 @@
 					</div>
 				</nav>
 	<div class="container col-12 text-center">
+	<a href="javascript:history.back()" id="back"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
 		<h2 class="text-light">Choisis ton jeux</h2>
 		<a class="btn btn-primary m-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
   Filtrer

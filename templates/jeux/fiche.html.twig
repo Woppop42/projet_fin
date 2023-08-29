@@ -1,14 +1,61 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<style>
+		#back {
+			display: flex;
+			position: flex-end;
+		}
+	</style>
 
+{% endblock %}
 {% block body %}
-
+<div class="profile-background-color">
+		<div class="container-wrapper">
+			<div class="container col-12 text-center" id="container">
+				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
+					<div class="container-fluid">
+						{% if app.user %}
+							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
+						{% endif %}
+						<ul class="navbar-nav flex-row">
+							<li class="nav-item me-3">
+								<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
+									<span class="visually-hidden">(current)</span>
+								</a>
+							</li>
+							{% if app.user %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
+								</li>
+							{% else %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('login')}}">Se connecter</a>
+								</li>
+							{% endif %}
+							<li class="nav-item me-3">
+								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
+							</li>
+							<li class="nav-item me-3">
+								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li class="nav-item dropdown">
+									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</nav>
 	<div class="container text-center">
+		<a href="javascript:history.back()" id="back">
+			<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+		</a>
 		<h1 class="text-info">{{jeux.nom}}</h1>
 		<img src="{{asset('images/' ~ jeux.photo)}}" alt="">
 		<div class="container col-6 text-center">
-				<a class="btn btn-primary m-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-  Filtrer
-</a>
+			<a class="btn btn-primary m-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+				Filtrer
+			</a>
 			<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 				<div class="offcanvas-header">
 					<h5 class="offcanvas-title" id="offcanvasExampleLabel">Recherche par Tag</h5>
@@ -51,7 +98,7 @@
 
 
 		</div>
-		<h3 class="text-primary">Fais ton annonce</h3>
+		<h3 class="text-light">Fais ton annonce</h3>
 		{{form_start(form)}}
 		{{form_row(form.titre)}}
 		{{form_row(form.contenu)}}
