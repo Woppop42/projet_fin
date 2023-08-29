@@ -9,7 +9,7 @@
 
 {% endblock %}
 {% block body %}
-<div class="profile-background-color">
+	<div class="profile-background-color">
 		<div class="container-wrapper">
 			<div class="container col-12 text-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
@@ -35,9 +35,13 @@
 							<li class="nav-item me-3">
 								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
 							</li>
-							<li class="nav-item me-3">
+							{% if app.user %}
+								<li class="nav-item me-3">
 								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
-							</li>
+								</li>
+							{% endif %}
+							
+							
 							{% if is_granted('ROLE_ADMIN') %}
 								<li class="nav-item dropdown">
 									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
@@ -46,66 +50,72 @@
 						</ul>
 					</div>
 				</nav>
-	<div class="container text-center">
-		<a href="javascript:history.back()" id="back">
-			<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
-		</a>
-		<h1 class="text-info">{{jeux.nom}}</h1>
-		<img src="{{asset('images/' ~ jeux.photo)}}" alt="">
-		<div class="container col-6 text-center">
-			<a class="btn btn-primary m-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-				Filtrer
-			</a>
-			<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-				<div class="offcanvas-header">
-					<h5 class="offcanvas-title" id="offcanvasExampleLabel">Recherche par Tag</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-				</div>
-				<div class="offcanvas-body">
-					<div>
-						Choisissez le filtre qui vous plaît.
-					</div>
-					<form action="{{path('tag_filtre', {id: jeux.id})}}" method='GET'>
-						<div class="form-group m-3">
-							<label for="exampleSelect1" class="form-label mt-4">Sélection par Tag</label>
-							<select class="form-select" id="exampleSelect1" name="tag">
-								{% for tag in tags %}
-									<option value="{{tag}}">{{tag}}</option>
-								{% endfor %}
+				<div class="container text-center">
+					<a href="javascript:history.back()" id="back">
+						<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+					</a>
+					<h1 class="text-info">{{jeux.nom}}</h1>
+					<img src="{{asset('images/' ~ jeux.photo)}}" alt="">
+					<div class="container col-6 text-center">
+						<a class="btn btn-primary m-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+							Filtrer
+						</a>
+						<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+							<div class="offcanvas-header">
+								<h5 class="offcanvas-title" id="offcanvasExampleLabel">Recherche par Tag</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+							</div>
+							<div class="offcanvas-body">
+								<div>
+									Choisissez le filtre qui vous plaît.
+								</div>
+								<form action="{{path('tag_filtre', {id: jeux.id})}}" method='GET'>
+									<div class="form-group m-3">
+										<label for="exampleSelect1" class="form-label mt-4">Sélection par Tag</label>
+										<select class="form-select" id="exampleSelect1" name="tag">
+											{% for tag in tags %}
+												<option value="{{tag}}">{{tag}}</option>
+											{% endfor %}
 
-							</select>
-							<button class="btn btn-outline-success mt-3" type="submit">Filtrer</button>
+										</select>
+										<button class="btn btn-outline-success mt-3" type="submit">Filtrer</button>
+									</div>
+								</form>
+							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-			{% for item in messages %}
-				<div class="card mb-3">
-					<div class="card-body">
-						<h4 class="card-title">{{item.titre}}</h4>
-						<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
-						<p class="card-text">{{item.contenu}}</p>
-						<p class="card-link">
-							<a href="{{path('visite_profil', {id: item.user.id})}}">{{item.user.pseudo}}</a>
-						</p>
-						<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
-						<div>
-							<a href="{{path('reponse_annonce', {id: item.id})}}" class="btn btn-outline-primary">Répondre</a>
-						</div>
+						{% for item in messages %}
+							<div class="card mb-3">
+								<div class="card-body">
+									<h4 class="card-title">{{item.titre}}</h4>
+									<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
+									<p class="card-text">{{item.contenu}}</p>
+									<p class="card-link">
+										<a href="{{path('visite_profil', {id: item.user.id})}}">{{item.user.pseudo}}</a>
+									</p>
+									<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
+									<div>
+										<a href="{{path('reponse_annonce', {id: item.id})}}" class="btn btn-outline-primary">Répondre</a>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+
+
 					</div>
+					{% if app.user %}
+						<h3 class="text-light">Fais ton annonce</h3>
+						{{form_start(form)}}
+						{{form_row(form.titre)}}
+						{{form_row(form.contenu)}}
+						{{form_row(form.Tag)}}
+						<button class="btn btn-success">Publier</button>
+						{{form_end(form)}}
+						{% else %}
+							<p class="text-center">Pour pouvoir chercher des joueurs, <a href="{{path('login')}}">connectez-vous</a> ou <a href="{{path('inscription')}}">inscrivez-vous</a></p>
+					{% endif %}
+
+
 				</div>
-			{% endfor %}
 
 
-		</div>
-		<h3 class="text-light">Fais ton annonce</h3>
-		{{form_start(form)}}
-		{{form_row(form.titre)}}
-		{{form_row(form.contenu)}}
-		{{form_row(form.Tag)}}
-		<button class="btn btn-success">Publier</button>
-		{{form_end(form)}}
-	</div>
-
-
-{% endblock %}
+			{% endblock %}

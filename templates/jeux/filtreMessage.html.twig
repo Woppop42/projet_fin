@@ -1,28 +1,72 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+	<div class="profile-background-color" style="height: 100%;">
+		<div class="container-wrapper">
+			<div class="container col-12 text-center" id="container">
+				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
+					<div class="container-fluid">
+						{% if app.user %}
+							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
+						{% endif %}
+						<ul class="navbar-nav flex-row">
+							<li class="nav-item me-3">
+								<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
+									<span class="visually-hidden">(current)</span>
+								</a>
+							</li>
+							{% if app.user %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
+								</li>
+							{% else %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('login')}}">Se connecter</a>
+								</li>
+							{% endif %}
+							<li class="nav-item me-3">
+								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
+							</li>
+							{% if app.user %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+								</li>
+							{% endif %}
 
-<div class="container col-12 text-center">
-{% for item in messages %}
-    <div class="card mb-3">
-					<div class="card-body">
-					<div class="row">
-						<a href="javascript:history.back()"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
-						<h4 class="card-title">{{item.titre}}</h4>
+
+							{% if is_granted('ROLE_ADMIN') %}
+								<li class="nav-item dropdown">
+									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
+								</li>
+							{% endif %}
+						</ul>
 					</div>
-						<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
-						<p class="card-text">{{item.contenu}}</p>
-						<p class="card-link">
-							<a href="{{path('visite_profil', {id: item.user.id})}}">{{item.user.pseudo}}</a>
-						</p>
-						<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
-						<div>
-							<a href="{{path('reponse_annonce', {id: item.id})}}" class="btn btn-outline-primary">Répondre</a>
+				</nav>
+				<div class="container col-12 text-center">
+					<a href="javascript:history.back()" style="display: flex; position: flex-end;">
+						<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+					</a>
+					{% for item in messages %}
+						<div class="card mb-3">
+							<div class="card-body">
+								<div class="row">
+									<h4 class="card-title">{{item.titre}}</h4>
+								</div>
+								<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
+								<p class="card-text">{{item.contenu}}</p>
+								<p class="card-link">
+									<a href="{{path('visite_profil', {id: item.user.id})}}">{{item.user.pseudo}}</a>
+								</p>
+								<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
+								<div>
+									<a href="{{path('reponse_annonce', {id: item.id})}}" class="btn btn-outline-primary">Répondre</a>
+								</div>
+							</div>
 						</div>
-					</div>
+					{% endfor %}
+
 				</div>
-{% endfor %}
 
-</div>
-
-
+			</div>
+		</div>
+	</div>
 {% endblock %}

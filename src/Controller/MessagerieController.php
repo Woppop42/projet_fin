@@ -27,27 +27,27 @@ class MessagerieController extends AbstractController
             'controller_name' => 'MessagerieController',
         ]);
     }
-    #[Route('/messagerie/nouveau', name: 'nouveau_message')]
-    public function nouveauMessage(MessagerieRepository $repo, EntityManagerInterface $manager, Request $req): Response 
-    {
-        $message = new Messagerie;
-        $form = $this->createForm(MessagerieType::class, $message);
-        $form->handleRequest($req);
+    // #[Route('/messagerie/nouveau', name: 'nouveau_message')]
+    // public function nouveauMessage(MessagerieRepository $repo, EntityManagerInterface $manager, Request $req): Response 
+    // {
+    //     $message = new Messagerie;
+    //     $form = $this->createForm(MessagerieType::class, $message);
+    //     $form->handleRequest($req);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $message->setIsRead(0);
-            $message->setSender($this->getUser());
-            $manager->persist($message);
-            $manager->flush();
-            $this->addFlash('message', 'Message envoyé avec succès !');
-            return $this->redirectToRoute('app_messagerie');
-        }
+    //     if($form->isSubmitted() && $form->isValid())
+    //     {
+    //         $message->setIsRead(0);
+    //         $message->setSender($this->getUser());
+    //         $manager->persist($message);
+    //         $manager->flush();
+    //         $this->addFlash('message', 'Message envoyé avec succès !');
+    //         return $this->redirectToRoute('app_messagerie');
+    //     }
 
-        return $this->render('messagerie/message.html.twig', [
-            'form' => $form,
-        ]);
-    }
+    //     return $this->render('messagerie/message.html.twig', [
+    //         'form' => $form,
+    //     ]);
+    // }
     #[Route('/message/received', name: 'received_message')]
     public function messageRecu(): Response 
     {
@@ -58,7 +58,7 @@ class MessagerieController extends AbstractController
     {
         $message = $repo->find($id);
         $message->setIsRead(true);
-
+        
         return $this->render('messagerie/lire.html.twig', [
             'message' => $message,
         ]);

@@ -17,13 +17,16 @@
 			position: absolute;
 			top: 0; /* Positionnement en haut de la container */
 		}
+		body {
+			height: 100%;
+		}
 	</style>
 
 {% endblock %}
 {% block body %}
 <div class="profile-background-color">
-		<div class="container-wrapper">
-			<div class="container col-12 text-center" id="container">
+		<div class="container-wrapper" style="height: 100%;">
+			<div class="container col-12 text-center d-flex align-item-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
 					<a href="javascript:history.back()"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
@@ -88,7 +91,7 @@
       </button>
       <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="{{path('received_message')}}">Boite de réception</a></li>
-        <li><a class="dropdown-item" href="{{path('nouveau_message')}}">Nouveau message</a></li>
+        {# <li><a class="dropdown-item" href="{{path('nouveau_message')}}">Nouveau message</a></li> #}
         <li><a class="dropdown-item" href="{{path('sent_message')}}">Boite d'envoi</a></li>
         <li><a class="dropdown-item" href="{{path('app_conversation', {id: app.user.id})}}">Conversations</a></li>
       </ul>
