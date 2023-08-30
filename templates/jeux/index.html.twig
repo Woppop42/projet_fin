@@ -11,9 +11,9 @@
 	</style>
 	<div class="container-fluid p-0">
 		<div class="row">
-			<div class="col-md-5 d-flex flex-column align-items-center">
+			<div class="col-md-5 d-md-flex d-none flex-column">
 				<div class="image-container rounded-3 overflow-hidden">
-					<img src="{{asset('images/frontpage.jpg')}}" alt="" style="max-width: 100%; max-height: 90vh;">
+					<img src="{{asset('images/frontpage.jpg')}}" alt="" style="max-width: 100%; max-height: 100vh;">
 				</div>
 			</div>
 
@@ -43,7 +43,7 @@
 							</li>
 							{% if app.user %}
 								<li class="nav-item me-3">
-								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+									<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
 								</li>
 							{% endif %}
 							{% if is_granted('ROLE_ADMIN') %}
@@ -104,7 +104,7 @@
 		<div class="container text-center">
 			<h3 class="m-3">Un échantillon des jeux sur lesquels tu peux trouver des camarades</h3>
 
-			<div class="row justify-content-center">
+			<div class="row justify-content-center d-none d-md-flex">
 
 				<img src="{{asset('images/d4.jpg')}}" alt="" style="max-width: 778px; max-height: 483px; margin-bottom: 10px;">
 
@@ -112,7 +112,7 @@
 				<img src="{{asset('images/apex.jpg')}}" alt="" style="max-width: 450px; max-height: 343px;">
 
 			</div>
-			<div class="row justify-content-center">
+			<div class="row justify-content-center d-none d-md-flex">
 
 				<img src="{{asset('images/gta5.jpg')}}" alt="" style="max-width: 685px; max-height: 350px;">
 
@@ -124,22 +124,39 @@
 
 			</div>
 
+			<div class="row d-md-none">
+				<img src="{{ asset('images/d4.jpg') }}" alt="" class="sample-image-mobile"/>
+
+				<img src="{{ asset('images/apex.jpg') }}" alt="" class="sample-image-mobile"/>
+				<img src="{{asset('images/gta5.jpg')}}" alt="" class="sample-image-mobile">
+
+
+				<img src="{{asset('images/ow2front.jpg.webp')}}" alt="" class="sample-image-mobile">
+
+
+				<img
+				src="{{asset('images/td1front.jpg')}}" alt="" class="sample-image-mobile">
+
+			<!-- ... Ajoutez le reste de vos images ici ... -->
+
+			</div>
+
 			<div class="container text-center">
-				<a href="" class="btn btn-outline-danger text-center m-3">Liste des jeux</a>
+				<a href="{{path('liste_jeux')}}" class="btn btn-outline-danger text-center m-3">Liste des jeux</a>
 			</div>
 		</div>
 
 
 	</div>
-	    <footer style="height: 350px; background-color: #D5D5D5; margin-top: 25px; width : 100%;">
-    <div class="container col-4 m-3 text-center my-auto">
-        <div class="row m-3"></div>
-        <div class="row m-3"></div>
-        <p>À propos</p>
-        <p>Mentions légales</p>
-        <p>FAQ</p>
-    
-    </div>
-    </footer>
+	<footer style="height: 350px; background-color: #D5D5D5; margin-top: 25px; width : 100%;">
+		<div class="container col-4 m-3 text-center my-auto">
+			<div class="row m-3"></div>
+			<div class="row m-3"></div>
+			<p>À propos</p>
+			<p>Mentions légales</p>
+			<p>FAQ</p>
+
+		</div>
+	</footer>
 
 </div>{% endblock %}

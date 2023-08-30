@@ -5,3 +5,9 @@
  a {
     text-decoration: none;
  }
+ .sample-image-mobile {
+    max-width: 778px;
+    max-height: 483px;
+    margin-bottom: 10px;
+}
+
