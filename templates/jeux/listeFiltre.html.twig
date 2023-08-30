@@ -1,4 +1,18 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<style>
+@media (max-width: 767px) {
+    .card {
+        margin: 0 auto; /* Ajout de cette règle pour centrer les cards */
+        float: none;
+    }
+}
+#back {
+	display: flex;
+}
+</style>
+
+{% endblock %}
 {% block body %}
 <div class="profile-background-color">
 		<div class="container-wrapper">
@@ -40,7 +54,8 @@
 					</div>
 				</nav>
 <div class="container col-12 text-center">
-<h1>Liste des jeux {{genre}}</h1>
+				<a href="javascript:history.back()" id="back"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+<h1 class="text-light">Liste des jeux {{genre}}</h1>
 
 <div class="row">
 			{% for jeu in jeux %}

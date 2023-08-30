@@ -87,7 +87,20 @@
 			</div>
 		</div>
 
-		<div class="container col-6 text-center mt-3">
+		<div class="container row text-center d-none d-md-flex mt-3">
+			<div class="row text-center">
+				<div class="col">1</div>
+				<div class="col">2</div>
+				<div class="col">3</div>
+			</div>
+			<div class="row">
+				<div class="col">Inscris-toi</div>
+				<div class="col">Cherche tes jeux et trouve ton crew</div>
+				<div class="col">Passe les meilleurs games de ta vie</div>
+			</div>
+		</div>
+
+		<div class="container d-md-none text-center mt-3">
 			<div class="row">
 				<div class="col">1</div>
 				<div class="col">2</div>
@@ -98,65 +111,110 @@
 				<div class="col">Cherche tes jeux et trouve ton crew</div>
 				<div class="col">Passe les meilleurs games de ta vie</div>
 			</div>
-			<a href="" class="btn btn-outline-success text-center">Inscription</a>
 		</div>
 
 		<div class="container text-center">
 			<h3 class="m-3">Un échantillon des jeux sur lesquels tu peux trouver des camarades</h3>
 
 			<div class="row justify-content-center d-none d-md-flex">
+				<div class="col-md-6">
+					<a href="{{path('fiche_jeux', {id: 3})}}">
+						<div class="hover-container" onmouseover="showGameName('Diablo IV')" onmouseout="hideGameName()">
+							<img src="{{asset('images/d4.jpg')}}" alt="Lilith, l'antagoniste principal de Diablo IV" class="sample-image">
+						<div class="game-name" id="gameName">Diablo IV</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<a href="{{path('fiche_jeux', {id: 7})}}">
+						<div class="hover-container" onmouseover="showGameName('Apex Legends')" onmouseout="hideGameName()">
+							<img src="{{asset('images/apex.jpg')}}" alt="" class="sample-image">
+						<div class="game-name" id="gameName">Apex Legends</div>
+						</a>
+					</div>
 
-				<img src="{{asset('images/d4.jpg')}}" alt="" style="max-width: 778px; max-height: 483px; margin-bottom: 10px;">
-
-
-				<img src="{{asset('images/apex.jpg')}}" alt="" style="max-width: 450px; max-height: 343px;">
-
+				</div>
 			</div>
+
 			<div class="row justify-content-center d-none d-md-flex">
-
-				<img src="{{asset('images/gta5.jpg')}}" alt="" style="max-width: 685px; max-height: 350px;">
-
-
-				<img src="{{asset('images/ow2front.jpg.webp')}}" alt="" style="max-width: 350px; max-height: 290px;">
-
-
-				<img src="{{asset('images/td1front.jpg')}}" alt="" style="max-width: 250px; max-height: 450px;">
-
+				<div class="col-md-6">
+					<a href="{{path('fiche_jeux', {id: 4})}}">
+						<div class="hover-container" onmouseover="showGameName('GTA V')" onmouseout="hideGameName()">
+							<img src="{{asset('images/gta5.jpg')}}" alt="" class="sample-image">
+						<div class="game-name" id="gameName">GTA V</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<a href="{{path('fiche_jeux', {id: 1})}}">
+						<div class="hover-container" onmouseover="showGameName('Overwatch 2')" onmouseout="hideGameName()">
+							<img src="{{asset('images/ow2front.jpg.webp')}}" alt="" class="sample-image">
+						<div class="game-name" id="gameName">Overwatch 2</div>
+						</a>
+					</div>
+				</div>
 			</div>
 
-			<div class="row d-md-none">
-				<img src="{{ asset('images/d4.jpg') }}" alt="" class="sample-image-mobile"/>
-
-				<img src="{{ asset('images/apex.jpg') }}" alt="" class="sample-image-mobile"/>
-				<img src="{{asset('images/gta5.jpg')}}" alt="" class="sample-image-mobile">
-
-
-				<img src="{{asset('images/ow2front.jpg.webp')}}" alt="" class="sample-image-mobile">
-
-
-				<img
-				src="{{asset('images/td1front.jpg')}}" alt="" class="sample-image-mobile">
-
-			<!-- ... Ajoutez le reste de vos images ici ... -->
-
-			</div>
-
-			<div class="container text-center">
-				<a href="{{path('liste_jeux')}}" class="btn btn-outline-danger text-center m-3">Liste des jeux</a>
+			<div class="row justify-content-center d-none d-md-flex">
+				<div class="col-md-6">
+					<a href="{{path('fiche_jeux', {id: 8})}}">
+						<div class="hover-container" onmouseover="showGameName('The Division')" onmouseout="hideGameName()">
+							<img src="{{asset('images/td1front.jpg')}}" alt="" class="sample-image">
+						<div class="game-name" id="gameName">The Division</div>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
+			{# Affichage lors du passage en vue téléphone :  #}
+		<div class="row d-md-none text-center">
+			<a href="{{path('fiche_jeux', {id: 3})}}">
+			<div class="hover-container" onmouseover="showGameName('Diablo IV')" onmouseout="hideGameName()">
+			<img src="{{ asset('images/d4.jpg') }}" alt="" class="sample-image-mobile"/>
+			<div class="game-name" id="gameName">Diablo IV</div></a>
+			</div>
 
+			<a href="{{path('fiche_jeux', {id: 7})}}">
+			<div class="hover-container" onmouseover="showGameName('Apex Legends')" onmouseout="hideGameName()">
+			<img src="{{ asset('images/apex.jpg') }}" alt="" class="sample-image-mobile"/>
+			<div class="game-name" id="gameName">Apex Legends</div></a>
+			</div>
+			<a href="{{path('fiche_jeux', {id: 4})}}">
+			<div class="hover-container" onmouseover="showGameName('GTA V')" onmouseout="hideGameName()">
+			<img src="{{asset('images/gta5.jpg')}}" alt="" class="sample-image-mobile">
+			<div class="game-name" id="gameName">GTA V</div></a>
+			</div>
+
+
+			<a href="{{path('fiche_jeux', {id: 1})}}">
+			<div class="hover-container" onmouseover="showGameName('Overwatch 2')" onmouseout="hideGameName()">
+			<img src="{{asset('images/ow2front.jpg.webp')}}" alt="" class="sample-image-mobile">
+			<div class="game-name" id="gameName">Overwatch 2</div></a>
+			</div>
+
+
+			<a href="{{path('fiche_jeux', {id: 8})}}">
+			<div class="hover-container" onmouseover="showGameName('The Division')" onmouseout="hideGameName()">
+			<img src="{{asset('images/td1front.jpg')}}" alt="" class="sample-image-mobile">
+			<div class="game-name" id="gameName">The Division</div></a>
+			</div>
+
+		</div>
+
+		<div class="container text-center">
+			<a href="{{path('liste_jeux')}}" class="btn btn-outline-danger text-center m-3">Liste des jeux</a>
+		</div>
+	</div>
+
+
+</div>
+<footer style="height: 350px; background-color: #D5D5D5; margin-top: 25px; width : 100%;">
+	<div class="container col-4 m-3 text-center my-auto">
+		<div class="row m-3"></div>
+		<div class="row m-3"></div>
+		<p>À propos</p>
+		<p>Mentions légales</p>
+		<p>FAQ</p>
 
 	</div>
-	<footer style="height: 350px; background-color: #D5D5D5; margin-top: 25px; width : 100%;">
-		<div class="container col-4 m-3 text-center my-auto">
-			<div class="row m-3"></div>
-			<div class="row m-3"></div>
-			<p>À propos</p>
-			<p>Mentions légales</p>
-			<p>FAQ</p>
-
-		</div>
-	</footer>
-
-</div>{% endblock %}
+</footer></div>{% endblock %}

@@ -1,13 +1,46 @@
 .profile-background-color {
-    background-color: #685AFC;
-    height: 100%;
+  background-color: #685afc;
+  height: 100%;
 }
- a {
-    text-decoration: none;
- }
- .sample-image-mobile {
-    max-width: 778px;
-    max-height: 483px;
+a {
+  text-decoration: none;
+  margin: 0;
+}
+.sample-image {
+    max-width: 100%; /* Ajuster la largeur pour s'adapter à la disposition */
+    height: auto; /* Hauteur ajustée proportionnellement */
     margin-bottom: 10px;
 }
-
+.sample-image-mobile {
+  max-width: 100%; /* Ajuster la largeur pour s'adapter à la disposition */
+  height: auto; /* Hauteur ajustée proportionnellement */
+  margin-bottom: 10px;
+  max-height: none; /* Réinitialisation de la hauteur maximale */
+}
+.hover-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+.game-name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3f3e69;
+  opacity: 0.8;
+  color: black;
+  font-size: 24px;
+  border-radius: 5px;
+  transform: scale(0);
+}
+.hover-container:hover {
+    filter: grayscale(30%);
+  }
+  .hover-container:hover .game-name{
+    transform: scale(1);
+  }

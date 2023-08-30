@@ -5,7 +5,12 @@ a {
 	display : flex;
 	position: flex-end;
 }
-
+@media (max-width: 767px) {
+    .card {
+        margin: 0 auto; /* Ajout de cette règle pour centrer les cards */
+        float: none;
+    }
+}
 </style>
 
 {% endblock %}
@@ -36,9 +41,14 @@ a {
 							<li class="nav-item me-3">
 								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
 							</li>
+							{% if app.user %}
+							
 							<li class="nav-item me-3">
 								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
 							</li>
+							
+							{% endif %}
+							
 							{% if is_granted('ROLE_ADMIN') %}
 								<li class="nav-item dropdown">
 									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
@@ -87,7 +97,7 @@ a {
 			{% for jeu in jeux %}
 				<div class="col mb-4">
 					<div class="card mr-4" style="width: 18rem; height: 40rem;">
-						<img src="{{ asset('images/' ~ jeu.photo) }}" class="card-img-top" alt="...">
+						<img src="{{ asset('images/' ~ jeu.photo) }}" class="card-img-top mx-auto" style="max-width: 100%; max-height: 300px; object-fit: contain;" alt="...">
 						<div class="card-body d-flex flex-column">
 							<h5 class="card-title">{{ jeu.nom }}</h5>
 							<p class="card-text flex-grow-1">{{ jeu.presentation }}</p>
