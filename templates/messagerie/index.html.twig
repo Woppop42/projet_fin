@@ -1,35 +1,25 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 	<style>
-		#container {
-			background-color: white;
-			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-			height: 835px;
-			width: 80%;
-			display: flex;
-			flex-direction: column;
-			align-items: center; /* Alignement vertical au centre */
-			justify-content: center; /* Alignement horizontal au centre */
-			position: relative;
-		}
 		.navbar {
 			position: absolute;
 			top: 0; /* Positionnement en haut de la container */
 		}
 		body {
-			height: 100%;
+			height: 100vh;
 		}
 	</style>
 
 {% endblock %}
 {% block body %}
-<div class="profile-background-color">
+	<div class="profile-background-color">
 		<div class="container-wrapper" style="height: 100%;">
 			<div class="container col-12 text-center d-flex align-item-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
-					<a href="javascript:history.back()"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+						<a href="javascript:history.back()">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+						</a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
@@ -62,41 +52,51 @@
 						</ul>
 					</div>
 				</nav>
-<section class="container">
-<div class="row">
-<div class="col">
-<h1>Messagerie</h1>
-<p>Résumé de la messagerie</p>
-<p>Reçus : {{ app.user.received|length }}</p>
-<p>Envoyés : {{ app.user.sent|length }}</p>
-</div>
-</div>
-</section>
-<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-  Mes conversations
-</a>
+				<section class="container">
+					<div class="row">
+						<div class="col">
+							<h1>Messagerie</h1>
+							<p>Résumé de la messagerie</p>
+							<p>Reçus :
+								{{ app.user.received|length }}</p>
+							<p>Envoyés :
+								{{ app.user.sent|length }}</p>
+						</div>
+					</div>
+				</section>
+				<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+					Mes conversations
+				</a>
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu de messagerie</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div>
-      Toutes les options de messagerie.
-    </div>
-    <div class="dropdown mt-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-        Messagerie
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{{path('received_message')}}">Boite de réception</a></li>
-        {# <li><a class="dropdown-item" href="{{path('nouveau_message')}}">Nouveau message</a></li> #}
-        <li><a class="dropdown-item" href="{{path('sent_message')}}">Boite d'envoi</a></li>
-        <li><a class="dropdown-item" href="{{path('app_conversation', {id: app.user.id})}}">Conversations</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-</div>
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu de messagerie</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<div>
+							Toutes les options de messagerie.
+						</div>
+						<div class="dropdown mt-3">
+							<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+								Messagerie
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="{{path('received_message')}}">Boite de réception</a>
+								</li>
+								{# <li><a class="dropdown-item" href="{{path('nouveau_message')}}">Nouveau message</a></li> #}
+								<li>
+									<a class="dropdown-item" href="{{path('sent_message')}}">Boite d'envoi</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('app_conversation', {id: app.user.id})}}">Conversations</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

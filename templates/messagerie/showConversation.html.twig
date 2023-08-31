@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="profile-background-color">
+	<div class="profile-background-color">
 		<div class="container-wrapper">
 			<div class="container col-12 text-center" id="container">
-				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
+				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width:100%;">
 					<div class="container-fluid">
+						<a href="javascript:history.back()" id="back" style="display: flex;">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+						</a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
@@ -38,19 +41,19 @@
 						</ul>
 					</div>
 				</nav>
-	<div class="container col-12 text-center">
-	<a href="javascript:history.back()" id="back" style="display: flex;"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
-<h1 class="text-light">{{conv.sujet}}</h1>
-<h2 class="text-light">{{conv.jeux}}</h2>
-{% for message in conv.messages %}
-    <h4>{{message.message}}</h4>
-    <p>De : {{message.sender.pseudo}}</p>
-{% endfor %}
+				<div class="container col-12 text-center">
+					<h1 class="text-dark">{{conv.sujet}}</h1>
+					<h2 class="text-dark">{{conv.jeux.nom}}</h2>
+					{% for message in conv.messages %}
+						<h4>{{message.message}}</h4>
+						<p>De :
+							{{message.sender.pseudo}}</p>
+					{% endfor %}
 
-{{form_start(form)}}
-{{form_row(form.message)}}
-<button class="btn btn-outline-success mt-3">Envoyer</button>
-{{form_end(form)}}
-</div>
+					{{form_start(form)}}
+					{{form_row(form.message)}}
+					<button class="btn btn-outline-success mt-3 mb-3">Envoyer</button>
+					{{form_end(form)}}
+				</div>
 
-{% endblock %}
+			{% endblock %}

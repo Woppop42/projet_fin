@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="profile-background-color">
+	<div class="profile-background-color">
 		<div class="container-wrapper">
 			<div class="container col-12 text-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
-					<a href="javascript:history.back()"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+						<a href="javascript:history.back()">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+						</a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
@@ -39,36 +41,39 @@
 						</ul>
 					</div>
 				</nav>
-<div class="container col-12 text-center">
-<h1>Liste de vos conversations</h1>
+				<div class="container col-12 text-center">
+					<h1>Liste de vos conversations</h1>
 
-{% for conv in convSend %}
+					<h2 class="text-center text-dark">Conversations que vous avez commencé</h2>
+					{% for conv in convSend %}
+						<div class="card mb-3">
+							<div class="card-body">
+								<h4 class="card-title">{{conv.sujet}}</h4>
+								<h6 class="card-subtitle mb-2 text-muted">{{conv.chercheur.pseudo}}</h6>
+								<p class="card-text">Conversation commencée le
+									{{conv.createdAt|date("d/m/Y")}}</p>
+								<a href="{{path('show_conversation', {id: conv.id})}}" class="btn btn-outline-info">Voir la conversation</a>
+							</div>
+						</div>
 
-<div class="card mb-3">
-  <div class="card-body">
-    <h4 class="card-title">{{conv.sujet}}</h4>
-    <h6 class="card-subtitle mb-2 text-muted">{{conv.chercheur.pseudo}}</h6>
-    <p class="card-text">Conversation commencée le {{conv.createdAt|date("d/m/Y")}}</p>
-    <a href="{{path('show_conversation', {id: conv.id})}}" class="btn btn-outline-info">Voir la conversation</a>
-  </div>
-</div>
-    
-{% endfor %}
+					{% endfor %}
 
-{% for conv2 in convReceived %}
+					<h2 class="text-center text-dark mt-3">Conversations que votre interlocuteur a commencé</h2>
+					{% for conv2 in convReceived %}
+						<div class="card mb-3">
+							<div class="card-body">
+								<h4 class="card-title">{{conv2.sujet}}</h4>
+								<h6 class="card-subtitle mb-2 text-muted">{{conv2.annonceur.pseudo}}</h6>
+								<p class="card-text">Conversation commencée le
+									{{conv2.createdAt|date('d/m/Y')}}</p>
+								<a href="{{path('show_conversation', {id: conv2.id})}}" class="btn btn-outline-info mb-3">Voir la conversation</a>
+							</div>
+						</div>
 
-<div class="card">
-  <div class="card-body">
-    <h4 class="card-title">{{conv2.sujet}}</h4>
-    <h6 class="card-subtitle mb-2 text-muted">{{conv2.annonceur.pseudo}}</h6>
-    <p class="card-text">Conversation commencée le {{conv2.createdAt|date('d/m/Y')}}</p>
-    <a href="{{path('show_conversation', {id: conv2.id})}}" class="btn btn-outline-info">Voir la conversation</a>
-  </div>
-</div>
+					{% endfor %}
+				</div>
 
-{% endfor %}
-</div>
-
-
-
+			</div>
+		</div>
+	</div>
 {% endblock %}

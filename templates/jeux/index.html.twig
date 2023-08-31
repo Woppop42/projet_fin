@@ -58,6 +58,9 @@
 				<div class="container text-center">
 					<div class="d-flex justify-content-end">
 						<div class="text-content">
+							{% for message in app.flashes('success') %}
+								<div class="alert alert-success text-center">{{message}}</div>
+							{% endfor %}
 							<h1 class="text-center text-dark">Rencontre tes futurs camarades de jeux</h1>
 							<p class="text-center text-info"></p>
 							<p>Ce site va te permettre de trouver rapidement des camarades avec qui jouer à tes
@@ -71,12 +74,11 @@
 							<p>L'onglet messagerie te permettra de t'organiser rapidement avec tes contacts.</p>
 							<p>Sur ce site, pas de cookies, pas de pubs, tes données personnelles sont entre de bonnes mains. Simplement l'amour du jeu et l'envie de le partager.</p>
 							<p>En espérant que tu y trouves tes futurs camarades et que vous pétiez les scores grâce à votre collaboration.</p>
-							{% for message in app.flashes('success') %}
-								<div class="alert alert-success text-center">{{message}}</div>
-							{% endfor %}
+
 							{% if app.user %}
 								<p>
-									Bienvenue !
+									Bienvenue
+									{{app.user.pseudo }}!
 								</p>
 							{% else %}
 								<a href="{{path('inscription')}}" class="btn btn-outline-danger">Inscris-toi</a>
@@ -121,7 +123,7 @@
 					<a href="{{path('fiche_jeux', {id: 3})}}">
 						<div class="hover-container" onmouseover="showGameName('Diablo IV')" onmouseout="hideGameName()">
 							<img src="{{asset('images/d4.jpg')}}" alt="Lilith, l'antagoniste principal de Diablo IV" class="sample-image">
-						<div class="game-name" id="gameName">Diablo IV</div>
+							<div class="game-name" id="gameName">Diablo IV</div>
 						</a>
 					</div>
 				</div>
@@ -129,7 +131,7 @@
 					<a href="{{path('fiche_jeux', {id: 7})}}">
 						<div class="hover-container" onmouseover="showGameName('Apex Legends')" onmouseout="hideGameName()">
 							<img src="{{asset('images/apex.jpg')}}" alt="" class="sample-image">
-						<div class="game-name" id="gameName">Apex Legends</div>
+							<div class="game-name" id="gameName">Apex Legends</div>
 						</a>
 					</div>
 
@@ -141,7 +143,7 @@
 					<a href="{{path('fiche_jeux', {id: 4})}}">
 						<div class="hover-container" onmouseover="showGameName('GTA V')" onmouseout="hideGameName()">
 							<img src="{{asset('images/gta5.jpg')}}" alt="" class="sample-image">
-						<div class="game-name" id="gameName">GTA V</div>
+							<div class="game-name" id="gameName">GTA V</div>
 						</a>
 					</div>
 				</div>
@@ -149,7 +151,7 @@
 					<a href="{{path('fiche_jeux', {id: 1})}}">
 						<div class="hover-container" onmouseover="showGameName('Overwatch 2')" onmouseout="hideGameName()">
 							<img src="{{asset('images/ow2front.jpg.webp')}}" alt="" class="sample-image">
-						<div class="game-name" id="gameName">Overwatch 2</div>
+							<div class="game-name" id="gameName">Overwatch 2</div>
 						</a>
 					</div>
 				</div>
@@ -160,43 +162,48 @@
 					<a href="{{path('fiche_jeux', {id: 8})}}">
 						<div class="hover-container" onmouseover="showGameName('The Division')" onmouseout="hideGameName()">
 							<img src="{{asset('images/td1front.jpg')}}" alt="" class="sample-image">
-						<div class="game-name" id="gameName">The Division</div>
+							<div class="game-name" id="gameName">The Division</div>
 						</a>
 					</div>
 				</div>
 			</div>
 		</div>
-			{# Affichage lors du passage en vue téléphone :  #}
+		{# Affichage lors du passage en vue téléphone :  #}
 		<div class="row d-md-none text-center">
 			<a href="{{path('fiche_jeux', {id: 3})}}">
-			<div class="hover-container" onmouseover="showGameName('Diablo IV')" onmouseout="hideGameName()">
-			<img src="{{ asset('images/d4.jpg') }}" alt="" class="sample-image-mobile"/>
-			<div class="game-name" id="gameName">Diablo IV</div></a>
+				<div class="hover-container" onmouseover="showGameName('Diablo IV')" onmouseout="hideGameName()">
+					<img src="{{ asset('images/d4.jpg') }}" alt="" class="sample-image-mobile"/>
+					<div class="game-name" id="gameName">Diablo IV</div>
+				</a>
 			</div>
 
 			<a href="{{path('fiche_jeux', {id: 7})}}">
-			<div class="hover-container" onmouseover="showGameName('Apex Legends')" onmouseout="hideGameName()">
-			<img src="{{ asset('images/apex.jpg') }}" alt="" class="sample-image-mobile"/>
-			<div class="game-name" id="gameName">Apex Legends</div></a>
+				<div class="hover-container" onmouseover="showGameName('Apex Legends')" onmouseout="hideGameName()">
+					<img src="{{ asset('images/apex.jpg') }}" alt="" class="sample-image-mobile"/>
+					<div class="game-name" id="gameName">Apex Legends</div>
+				</a>
 			</div>
 			<a href="{{path('fiche_jeux', {id: 4})}}">
-			<div class="hover-container" onmouseover="showGameName('GTA V')" onmouseout="hideGameName()">
-			<img src="{{asset('images/gta5.jpg')}}" alt="" class="sample-image-mobile">
-			<div class="game-name" id="gameName">GTA V</div></a>
+				<div class="hover-container" onmouseover="showGameName('GTA V')" onmouseout="hideGameName()">
+					<img src="{{asset('images/gta5.jpg')}}" alt="" class="sample-image-mobile">
+					<div class="game-name" id="gameName">GTA V</div>
+				</a>
 			</div>
 
 
 			<a href="{{path('fiche_jeux', {id: 1})}}">
-			<div class="hover-container" onmouseover="showGameName('Overwatch 2')" onmouseout="hideGameName()">
-			<img src="{{asset('images/ow2front.jpg.webp')}}" alt="" class="sample-image-mobile">
-			<div class="game-name" id="gameName">Overwatch 2</div></a>
+				<div class="hover-container" onmouseover="showGameName('Overwatch 2')" onmouseout="hideGameName()">
+					<img src="{{asset('images/ow2front.jpg.webp')}}" alt="" class="sample-image-mobile">
+					<div class="game-name" id="gameName">Overwatch 2</div>
+				</a>
 			</div>
 
 
 			<a href="{{path('fiche_jeux', {id: 8})}}">
-			<div class="hover-container" onmouseover="showGameName('The Division')" onmouseout="hideGameName()">
-			<img src="{{asset('images/td1front.jpg')}}" alt="" class="sample-image-mobile">
-			<div class="game-name" id="gameName">The Division</div></a>
+				<div class="hover-container" onmouseover="showGameName('The Division')" onmouseout="hideGameName()">
+					<img src="{{asset('images/td1front.jpg')}}" alt="" class="sample-image-mobile">
+					<div class="game-name" id="gameName">The Division</div>
+				</a>
 			</div>
 
 		</div>

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de {{jeux.nom}}{% endblock %}
+
+{% block body %}
+<h1 class="text-center">Modification de {{jeux.nom}}</h1>
+<div class="container col-12">
+{{form_start(form)}}
+{{form_row(form.nom)}}
+{{form_row(form.studio)}}
+{{form_row(form.genre)}}
+{{form_row(form.date_sortie)}}
+{{form_row(form.photo)}}
+{{form_row(form.presentation)}}
+<button class="btn btn-outline-warning" type="submit">Modifier</button>
+{{form_end(form)}}
+
+</div>
+
+{% endblock %}

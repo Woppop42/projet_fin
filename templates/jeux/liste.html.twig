@@ -20,6 +20,7 @@ a {
 			<div class="container col-12 text-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
+						<a href="javascript:history.back()" id="back"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
@@ -58,8 +59,7 @@ a {
 					</div>
 				</nav>
 	<div class="container col-12 text-center">
-	<a href="javascript:history.back()" id="back"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
-		<h2 class="text-light">Choisis ton jeux</h2>
+		<h2 class="text-dark">Choisis ton jeux</h2>
 		<a class="btn btn-outline-success m-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
   Filtrer
 </a>
@@ -93,6 +93,10 @@ a {
   </div>
 </div>
 
+		{% for message in app.flashes('noAccount') %}
+			<div class="alert alert-danger">{{message}}</div>
+		{% endfor %}
+
 		<div class="row">
 			{% for jeu in jeux %}
 				<div class="col mb-4">
@@ -107,7 +111,7 @@ a {
 							<div class="list-group-item">{{ jeu.genre }}</div>
 							<div class="list-group-item">sorti le
 								{{ jeu.dateSortie|date("d/m/Y") }}</div>
-							<a href="{{path('fiche_jeux', {id: jeu.id})}}" class="btn btn-outline-info mb-2">Voir les messages</a>
+							<a href="{{path('fiche_jeux', {id: jeu.id})}}" class="btn btn-outline-info mb-2">Voir les annonces</a>
 							<a href="{{path('ajout_jeux', {id: jeu.id})}}" class="btn btn-outline-success">Ajouter à la liste</a>
 						</div>
 					</div>

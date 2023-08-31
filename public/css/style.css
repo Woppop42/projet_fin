@@ -1,10 +1,27 @@
 .profile-background-color {
   background-color: #685afc;
   height: 100%;
+  padding : 20px;
 }
 a {
   text-decoration: none;
   margin: 0;
+}
+#container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alignement vertical au centre */
+  justify-content: center; /* Alignement horizontal au centre */
+  position: relative;
+}
+#back {
+  display: flex;
+
 }
 .sample-image {
     max-width: 100%; /* Ajuster la largeur pour s'adapter à la disposition */

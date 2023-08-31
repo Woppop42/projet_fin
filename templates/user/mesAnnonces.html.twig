@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="profile-background-color">
+	<div class="profile-background-color">
 		<div class="container-wrapper">
 			<div class="container col-12 text-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
-					<a href="javascript:history.back()"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+						<a href="javascript:history.back()">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+						</a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
@@ -39,28 +41,30 @@
 						</ul>
 					</div>
 				</nav>
-	<div class="container text-center col-12">
-		<h1 class="text-light">Liste de mes annonces</h1>
+				<div class="container text-center col-12">
+					<h1 class="text-dark">Liste de mes annonces</h1>
 
-		{% for item in app.user.messages %}
-			<div class="card mb-3">
-				<div class="card-body">
-					<h4 class="card-title">{{item.titre}}</h4>
-					<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
-					<p class="card-text">{{item.contenu}}</p>
-					<p class="card-link">
-						<a href="{{path('visite_profil', {id: item.user.id})}}">{{item.user.pseudo}}</a>
-					</p>
-					<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
-					<div>
-						<a href="{{path('edit_annonce', {id: item.id})}}" class="btn btn-outline-primary">Modifier</a>
-						<a href="{{path('delete_annonce', {id: item.id})}}" class="btn btn-outline-danger">Supprimer</a>
-					</div>
+					{% for item in app.user.messages %}
+						<div class="card mb-3">
+							<div class="card-body">
+								<h4 class="card-title">{{item.titre}}</h4>
+								<h6 class="card-subtitle mb-2 text-muted">{{item.Tag}}</h6>
+								<p class="card-text">{{item.contenu}}</p>
+								<p class="card-link">
+									<a href="{{path('visite_profil', {id: item.user.id})}}">{{item.user.pseudo}}</a>
+								</p>
+								<p class="card-link">{{item.dateMessage|date("d/m/Y")}}</p>
+								<div>
+									<a href="{{path('edit_annonce', {id: item.id})}}" class="btn btn-outline-primary">Modifier</a>
+									<a href="{{path('delete_annonce', {id: item.id})}}" class="btn btn-outline-danger">Supprimer</a>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+
+
 				</div>
 			</div>
-		{% endfor %}
-
-
+		</div>
 	</div>
-
 {% endblock %}

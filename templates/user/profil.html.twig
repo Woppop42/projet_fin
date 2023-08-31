@@ -1,21 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 	<style>
-		#container {
-			background-color: white;
-			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-			height: 835px;
-			width: 80%;
-			display: flex;
-			flex-direction: column;
-			align-items: center; /* Alignement vertical au centre */
-			justify-content: center; /* Alignement horizontal au centre */
-			position: relative;
-		}
-		.navbar {
-			position: absolute;
-			top: 0; /* Positionnement en haut de la container */
+		body {
+			height: 100vh;
 		}
 	</style>
 
@@ -26,7 +13,9 @@
 			<div class="container col-12 text-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
-          <a href="javascript:history.back()"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+						<a href="javascript:history.back()">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+						</a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
@@ -76,16 +65,18 @@
 								</a>
 							</h3>
 						{% endfor %}
-            <div class="col-12">
-						{% for plateforme in plateformes %}
-							{{plateforme.nom}}
-						{% endfor %}
-            </div>
-            <div class="col-12 text-center">
-						<a href="{{path('modif_profil', {id: app.user.id})}}" class="btn btn-outline-warning m-3">Modifier son profil</a>
-						<a href="{{path('mes_annonces', {id: app.user.id})}}" class="btn btn-outline-info">Liste de vos annonces</a>
-            </div>
+						<div class="col-12">
+							{% for plateforme in plateformes %}
+								{{plateforme.nom}}
+							{% endfor %}
+						</div>
+						<div class="col-12 text-center">
+							<a href="{{path('modif_profil', {id: app.user.id})}}" class="btn btn-outline-warning m-3">Modifier son profil</a>
+							<a href="{{path('mes_annonces', {id: app.user.id})}}" class="btn btn-outline-info">Liste de vos annonces</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		{% endblock %}
+		</div>
+	</div>
+{% endblock %}

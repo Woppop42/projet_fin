@@ -83,9 +83,15 @@ class JeuxController extends AbstractController
     public function ajoutJeux(EntityManagerInterface $manager, Jeux $jeux)
     {
         $user = $this->getUser();
-        $user->addJeux($jeux);
-        $manager->persist($user);
-        $manager->flush();
+        if(!$user)
+        {
+            $this->addFlash('noAccount', 'Vous devez vous connecter ou vous inscrire afin de pouvoir ajouter un jeux à votre liste.');
+        } else 
+        {
+            $user->addJeux($jeux);
+            $manager->persist($user);
+            $manager->flush();
+        }
         return $this->redirectToRoute('liste_jeux');
     }
     #[Route('/jeux/filtre', name: 'liste_filtre')]
