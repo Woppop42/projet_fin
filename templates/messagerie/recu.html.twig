@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="profile-background-color">
+	<div class="profile-background-color">
 		<div class="container-wrapper">
 			<div class="container col-12 text-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
+						<a href="javascript:history.back()" id="back">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+						</a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
@@ -28,13 +31,13 @@
 								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
 							</li>
 							{% if app.user %}
-							
-							<li class="nav-item me-3">
-								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
-							</li>
-							
+
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+								</li>
+
 							{% endif %}
-							
+
 							{% if is_granted('ROLE_ADMIN') %}
 								<li class="nav-item dropdown">
 									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
@@ -43,71 +46,74 @@
 						</ul>
 					</div>
 				</nav>
-	<section class="container">
-	<a href="javascript:history.back()" id="back"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
-		<div class="row">
-			<div class="col-12">
-				<h1>Messagerie</h1>
-				<p>Boite de réception</p>
-				<p>Vous avez reçu :
-					{{ app.user.received|length }}
-					messages</p>
-			</div>
-			<div class="col-3">De</div>
-			<div class="col-3">Sujet</div>
-			<div class="col-3">Date</div>
-			<div class="col-3">Actions</div>
-			{% for message in app.user.received %}
-				{% set bold = "" %}
-				{% if message.isRead == 0 %}
-					{% set bold = "fw-bold"  %}
+				<section class="container">
+					<div class="row">
+						<div class="col-12">
+							<h1>Messagerie</h1>
+							<p>Boite de réception</p>
+							<p>Vous avez reçu :
+								{{ app.user.received|length }}
+								messages</p>
+						</div>
+						<div class="col-3">De</div>
+						<div class="col-3">Sujet</div>
+						<div class="col-3">Date</div>
+						<div class="col-3">Actions</div>
+						{% for message in app.user.received %}
+							{% set bold = "" %}
+							{% if message.isRead == 0 %}
+								{% set bold = "fw-bold"  %}
 
-				{% endif %}
+							{% endif %}
 
-				<div class="col-3 {{bold}}">{{message.sender.pseudo}}</div>
-				<div class="col-3 {{bold}}">
-					<a href="{{path('lire_message', {id: message.id})}}">{{message.title}}</a>
+							<div class="col-3 {{bold}}">{{message.sender.pseudo}}</div>
+							<div class="col-3 {{bold}}">
+								<a href="{{path('lire_message', {id: message.id})}}">{{message.title}}</a>
+							</div>
+							<div class="col-3 {{bold}}">{{message.createdAt|date("d/m/Y")}}</div>
+							<div class="col-3">
+								<a href="{{path('delete_message', {id: message.id})}}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewbox="0 0 16 16">
+										<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+										<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+									</svg>
+								</a>
+							</div>
+							<hr>
+						{% endfor %}
+					</div>
+				</section>
+				<a class="btn btn-primary mb-3 mt-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+					Menu de messagerie
+				</a>
+
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Messagerie</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<div>
+							Toutes les options de messagerie
+						</div>
+						<div class="dropdown mt-3">
+							<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+								Messagerie
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="{{ path('sent_message')}}">Message envoyés</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('app_conversation', {id: app.user.id})}}">Mes conversations</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('app_messagerie')}}">Retour au menu de messagerie</a>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
-				<div class="col-3 {{bold}}">{{message.createdAt|date("d/m/Y")}}</div>
-				<div class="col-3">
-					<a href="{{path('delete_message', {id: message.id})}}">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewbox="0 0 16 16">
-							<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-							<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-						</svg>
-					</a>
-				</div>
-			{% endfor %}
-		</div>
-	</section>
-	<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-		Mes conversations
-	</a>
-
-	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-		<div class="offcanvas-header">
-			<h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		</div>
-		<div class="offcanvas-body">
-			<div>
-				Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
-			</div>
-			<div class="dropdown mt-3">
-				<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-					Dropdown button
-				</button>
-				<ul class="dropdown-menu">
-					<li>
-						<a class="dropdown-item" href="{{ path('received_message')}}">Message reçu</a>
-					</li>
-					<li>
-						<a class="dropdown-item" href="#">Another action</a>
-					</li>
-					<li>
-						<a class="dropdown-item" href="#">Something else here</a>
-					</li>
-				</ul>
 			</div>
 		</div>
 	</div>

@@ -23,6 +23,11 @@ class MessagerieController extends AbstractController
     #[Route('/messagerie', name: 'app_messagerie')]
     public function index(): Response
     {
+        $user = $this->getUser();
+        if(!$user)
+        {
+            return $this->redirectToRoute('app_jeux');
+        }
         return $this->render('messagerie/index.html.twig', [
             'controller_name' => 'MessagerieController',
         ]);

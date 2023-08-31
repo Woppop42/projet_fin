@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="profile-background-color">
+	<div class="profile-background-color">
 		<div class="container-wrapper">
 			<div class="container col-12 text-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
-					<a href="javascript:history.back()"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+						<a href="javascript:history.back()">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+						</a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
@@ -39,15 +41,20 @@
 						</ul>
 					</div>
 				</nav>
-<div class="container col-12 text-center">
+				<div class="container col-12 text-center">
 
-<h1 class="text-center">{{message.title}}</h1>
-<p class="text-center">De {{message.sender.pseudo }}</p>
-<p class="text-center">{{message.message}}</p>
-<p class="text-center">Le {{message.createdAt|date("d/m/Y")}}</p>
+					<h1 class="text-center">{{message.title}}</h1>
+					<p class="text-center">De
+						{{message.sender.pseudo }}</p>
+					<p class="text-center">{{message.message}}</p>
+					<p class="text-center">Le
+						{{message.createdAt|date("d/m/Y")}}</p>
 
-<a href="{{path('show_conversation', {id: message.conversation.id})}}" class="btn btn-outline-success"></a>
+					<a href="{{path('show_conversation', {id: message.conversation.id})}}" class="btn btn-outline-success mt-3 mb-3">Répondre</a>
 
-</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}

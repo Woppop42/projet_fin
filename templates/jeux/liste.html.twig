@@ -1,26 +1,28 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-<style>
-a {
-	display : flex;
-	position: flex-end;
-}
-@media (max-width: 767px) {
-    .card {
-        margin: 0 auto; /* Ajout de cette règle pour centrer les cards */
-        float: none;
-    }
-}
-</style>
+	<style>
+		a {
+			display: flex;
+			position: flex-end;
+		}
+		@media(max-width: 767px) {
+			.card {
+				margin: 0 auto; /* Ajout de cette règle pour centrer les cards */
+				float: none;
+			}
+		}
+	</style>
 
 {% endblock %}
 {% block body %}
-<div class="profile-background-color">
+	<div class="profile-background-color">
 		<div class="container-wrapper">
 			<div class="container col-12 text-center" id="container">
 				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
-						<a href="javascript:history.back()" id="back"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+						<a href="javascript:history.back()" id="back">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+						</a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
@@ -43,13 +45,13 @@ a {
 								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
 							</li>
 							{% if app.user %}
-							
-							<li class="nav-item me-3">
-								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
-							</li>
-							
+
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+								</li>
+
 							{% endif %}
-							
+
 							{% if is_granted('ROLE_ADMIN') %}
 								<li class="nav-item dropdown">
 									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
@@ -58,66 +60,67 @@ a {
 						</ul>
 					</div>
 				</nav>
-	<div class="container col-12 text-center">
-		<h2 class="text-dark">Choisis ton jeux</h2>
-		<a class="btn btn-outline-success m-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-  Filtrer
-</a>
+				<div class="container col-12 text-center">
+					<h2 class="text-dark">Choisis ton jeux</h2>
+					<a class="btn btn-outline-success m-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+						Filtrer
+					</a>
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filtre</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div>
-      Choisissez le filtre qui vous plaît.
-    </div>
-			<form action="{{path('liste_filtre')}}" method='GET'>
-		<div class="form-group m-3">
-			<label for="exampleSelect1" class="form-label mt-4">Sélection par genre</label>
-			<select class="form-select" id="exampleSelect1" name="genre">
+					<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+						<div class="offcanvas-header">
+							<h5 class="offcanvas-title" id="offcanvasExampleLabel">Filtre</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						</div>
+						<div class="offcanvas-body">
+							<div>
+								Choisissez le filtre qui vous plaît.
+							</div>
+							<form action="{{path('liste_filtre')}}" method='GET'>
+								<div class="form-group m-3">
+									<label for="exampleSelect1" class="form-label mt-4">Sélection par genre</label>
+									<select class="form-select" id="exampleSelect1" name="genre">
 
-				<option value="FPS">FPS</option>
-				<option value="MMORPG">MMORPG</option>
-				<option value="Action RPG">Action RPG</option>
-				<option value="Battle Royal">Battle Royal</option>
-				<option value="Looter Shooter">Looter Shooter</option>
-				<option value="TPS">TPS</option>
-				<option value="RPG">RPG</option>
+										<option value="FPS">FPS</option>
+										<option value="MMORPG">MMORPG</option>
+										<option value="Action RPG">Action RPG</option>
+										<option value="Battle Royal">Battle Royal</option>
+										<option value="Looter Shooter">Looter Shooter</option>
+										<option value="TPS">TPS</option>
+										<option value="RPG">RPG</option>
 
-			</select>
-			<button class="btn btn-outline-success mt-3" type="submit">Filtrer</button>
-		</div>
-		</form>
-  </div>
-</div>
-
-		{% for message in app.flashes('noAccount') %}
-			<div class="alert alert-danger">{{message}}</div>
-		{% endfor %}
-
-		<div class="row">
-			{% for jeu in jeux %}
-				<div class="col mb-4">
-					<div class="card mr-4" style="width: 18rem; height: 40rem;">
-						<img src="{{ asset('images/' ~ jeu.photo) }}" class="card-img-top mx-auto" style="max-width: 100%; max-height: 300px; object-fit: contain;" alt="...">
-						<div class="card-body d-flex flex-column">
-							<h5 class="card-title">{{ jeu.nom }}</h5>
-							<p class="card-text flex-grow-1">{{ jeu.presentation }}</p>
-							<p class="mx-auto">{{ jeu.messages|length }}
-								recherches de groupe</p>
-							<div class="list-group-item">{{ jeu.studio }}</div>
-							<div class="list-group-item">{{ jeu.genre }}</div>
-							<div class="list-group-item">sorti le
-								{{ jeu.dateSortie|date("d/m/Y") }}</div>
-							<a href="{{path('fiche_jeux', {id: jeu.id})}}" class="btn btn-outline-info mb-2">Voir les annonces</a>
-							<a href="{{path('ajout_jeux', {id: jeu.id})}}" class="btn btn-outline-success">Ajouter à la liste</a>
+									</select>
+									<button class="btn btn-outline-success mt-3" type="submit">Filtrer</button>
+								</div>
+							</form>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
-		</div>
-	</div>
 
-{% endblock %}
+					{% for message in app.flashes('noAccount') %}
+						<div class="alert alert-danger">{{message}}</div>
+					{% endfor %}
+
+					<div class="row">
+						{% for jeu in jeux %}
+							<div class="col mb-4">
+								<div class="card mr-4" style="width: 18rem; height: 40rem;">
+									<img src="{{ asset('images/' ~ jeu.photo) }}" class="card-img-top mx-auto" style="max-width: 100%; max-height: 300px; object-fit: contain;" alt="...">
+									<div class="card-body d-flex flex-column">
+										<h5 class="card-title">{{ jeu.nom }}</h5>
+										<p class="card-text flex-grow-1">{{ jeu.presentation }}</p>
+										<p class="mx-auto">{{ jeu.messages|length }}
+											recherches de groupe</p>
+										<div class="list-group-item">{{ jeu.studio }}</div>
+										<div class="list-group-item">{{ jeu.genre }}</div>
+										<div class="list-group-item">sorti le
+											{{ jeu.dateSortie|date("d/m/Y") }}</div>
+										<a href="{{path('fiche_jeux', {id: jeu.id})}}" class="btn btn-outline-info mb-2">Voir les annonces</a>
+										<a href="{{path('ajout_jeux', {id: jeu.id})}}" class="btn btn-outline-success">Ajouter à la liste</a>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+</div>
+</div>
+			{% endblock %}
