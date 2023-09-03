@@ -18,46 +18,51 @@
 	<div class="profile-background-color">
 		<div class="container-wrapper">
 			<div class="container col-12 text-center" id="container">
-				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
+				<nav class="navbar navbar-expand-lg" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
-						<a href="javascript:history.back()" id="back">
-							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
-						</a>
-						{% if app.user %}
-							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
-						{% endif %}
-						<ul class="navbar-nav flex-row">
-							<li class="nav-item me-3">
-								<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
-									<span class="visually-hidden">(current)</span>
-								</a>
-							</li>
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarColor01">
+							<a href="javascript:history.back()" id="back">
+								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+							</a>
 							{% if app.user %}
-								<li class="nav-item me-3">
-									<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
-								</li>
-							{% else %}
-								<li class="nav-item me-3">
-									<a class="nav-link text-dark" href="{{path('login')}}">Se connecter</a>
-								</li>
+								<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 							{% endif %}
-							<li class="nav-item me-3">
-								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
-							</li>
-							{% if app.user %}
-
+							<ul class="navbar-nav me-auto flex-row">
 								<li class="nav-item me-3">
-									<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+									<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
+										<span class="visually-hidden">(current)</span>
+									</a>
 								</li>
-
-							{% endif %}
-
-							{% if is_granted('ROLE_ADMIN') %}
-								<li class="nav-item dropdown">
-									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
+								{% if app.user %}
+									<li class="nav-item me-3">
+										<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
+									</li>
+								{% else %}
+									<li class="nav-item me-3">
+										<a class="nav-link text-dark" href="{{path('login')}}">Se connecter</a>
+									</li>
+								{% endif %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
 								</li>
-							{% endif %}
-						</ul>
+								{% if app.user %}
+
+									<li class="nav-item me-3">
+										<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+									</li>
+
+								{% endif %}
+
+								{% if is_granted('ROLE_ADMIN') %}
+									<li class="nav-item dropdown">
+										<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
+									</li>
+								{% endif %}
+							</ul>
+						</div>
 					</div>
 				</nav>
 				<div class="container col-12 text-center">
@@ -121,6 +126,6 @@
 						{% endfor %}
 					</div>
 				</div>
-</div>
-</div>
-			{% endblock %}
+			</div>
+		</div>
+	{% endblock %}
