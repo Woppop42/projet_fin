@@ -43,7 +43,10 @@
 				</nav>
 				<div class="container col-12 text-center">
 					<h1 class="text-dark">{{conv.sujet}}</h1>
-					<h2 class="text-dark">{{conv.jeux.nom}}</h2>
+					{% if conv.jeux %}
+						<h2 class="text-dark">{{conv.jeux.nom}}</h2>
+					{% endif %}
+					
 					{% for message in conv.messages %}
 						<h4>{{message.message}}</h4>
 						<p>De :
