@@ -15,15 +15,19 @@
 	<div class="profile-background-color">
 		<div class="container-wrapper" style="height: 100%;">
 			<div class="container col-12 text-center d-flex align-item-center" id="container">
-				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
+				<nav class="navbar navbar-expand-lg" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon bg-dark text-light"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarColor01">
 						<a href="javascript:history.back()">
 							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
 						</a>
 						{% if app.user %}
 							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
 						{% endif %}
-						<ul class="navbar-nav flex-row">
+						<ul class="navbar-nav me-auto">
 							<li class="nav-item me-3">
 								<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
 									<span class="visually-hidden">(current)</span>
@@ -50,6 +54,7 @@
 								</li>
 							{% endif %}
 						</ul>
+						</div>
 					</div>
 				</nav>
 				<section class="container">
