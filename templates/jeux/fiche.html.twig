@@ -21,15 +21,17 @@
 							<a href="javascript:history.back()">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
 							</a>
-							{% if app.user %}
-								<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
-							{% endif %}
 							<ul class="navbar-nav me-auto">
 								<li class="nav-item me-3">
 									<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
 										<span class="visually-hidden">(current)</span>
 									</a>
 								</li>
+																	{% if app.user %}
+								<li class="nav-item me-3">
+										<a class="nav-link text-dark" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
+								</li>
+									{% endif %}
 								{% if app.user %}
 									<li class="nav-item me-3">
 										<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
