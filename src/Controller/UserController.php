@@ -69,13 +69,15 @@ class UserController extends AbstractController
         throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
     #[Route('/profil/{id}', name: 'profil_perso')]
-    public function profilPerso(UserRepository $repo)
+    public function profilPerso(UserRepository $repo, User $user)
     {
+        $user = $this->getUser();
         $jeux = $this->getUser()->getJeux();
         $plateformes = $this->getUser()->getPlateformes();
         return $this->render('user/profil.html.twig', [
             'jeux' => $jeux,
             'plateformes' => $plateformes,
+            'user' => $user,
         ]);
     }
     #[Route('/deleteJeuxFromProfile/{id}', name: 'delete_jeux_profile')]
@@ -91,11 +93,19 @@ class UserController extends AbstractController
     #[Route('profil/update/{id}', name: 'modif_profil')]
     public function modifProfil(EntityManagerInterface $manager, Request $req, SluggerInterface $slugger, User $user)
     {
-        $form = $this->createForm(UpdateProfilType::class, $user);
+        $choices = [
+            'Fleur' => '<img src="../public/images/fleur.jpg" alt="Une fleur">',
+            'Manette' => '<img src="./public/images/manette.jpg" alt="Une manette">',
+            'Poisson' => '<img src="./public/images/poisson.jpg" alt="Un poisson">',
+            'Game Over' => '<img src="./public/images/gameover.jpg" alt="Game Over">',
+            'Lune' => '<img src="./public/images/lune.jpg" alt="Une lune">',
+        ];
+        $form = $this->createForm(UpdateProfilType::class, $user, ['choices' => $choices]);
         $form->handleRequest($req);
 
         if($form->isSubmitted() && $form->isValid())
         {
+            
             $brochureFile = $form->get('photo_profil')->getData();
 
             // this condition is needed because the 'brochure' field is not required
@@ -120,6 +130,34 @@ class UserController extends AbstractController
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
                 $user->setPhotoProfil($newFilename);
+
+
+                // Pour les photos suggérés :
+                // $brochureFile = $form->get('photos')->getData();
+
+                // // this condition is needed because the 'brochure' field is not required
+                // // so the PDF file must be processed only when a file is uploaded
+                // if ($brochureFile) 
+                // {
+                //     $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                //     // this is needed to safely include the file name as part of the URL
+                //     $safeFilename = $slugger->slug($originalFilename);
+                //     $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+    
+                //     // Move the file to the directory where brochures are stored
+                //     try {
+                //         $brochureFile->move(
+                //             $this->getParameter('photos_directory'),
+                //             $newFilename
+                //         );
+                //     } catch (FileException $e) {
+                //         // ... handle exception if something happens during file upload
+                //     }
+    
+                //     // updates the 'brochureFilename' property to store the PDF file name
+                //     // instead of its contents
+                //     $user->setPhotoProfil($newFilename);
+                // }
             }
             $manager->persist($user);
             $manager->flush();

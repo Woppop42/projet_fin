@@ -21,7 +21,7 @@
 				<nav class="navbar bg-secondary" data-bs-theme="dark" style="margin-top: 20px; width: 100%;">
 					<div class="container-fluid">
 						{% if app.user %}
-							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
+							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}"><img src="{{asset('images/' ~ app.user.photoProfil)}}" alt="Photo de profil"></a>
 						{% endif %}
 						<ul class="navbar-nav flex-row">
 							<li class="nav-item me-3">

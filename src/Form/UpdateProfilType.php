@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UpdateProfilType extends AbstractType
 {
@@ -36,6 +37,26 @@ class UpdateProfilType extends AbstractType
                         'mimeTypesMessage' => 'Veuillez télécharger un fichier PDF, PNG ou JPG valide.'])
                 ]
             ])  
+            // ->add('photos', ChoiceType::class, [
+            //     'label' => 'Photo de profil',
+            //     'required' => false,
+            //     'choices' => $options['choices'],
+            //     'multiple' => false,
+            //     'choice_label' => false,
+            //     'constraints' => [
+            //         new File([
+            //             'maxSize' => '1024k',
+            //             'mimeTypes' => [
+            //                 'application/pdf',
+            //                 'application/x-pdf',
+            //                 'image/jpg',
+            //                 'image/jpeg',
+            //                 'image/png'
+            //             ],
+            //             'mimeTypesMessage' => 'Veuillez télécharger un fichier PDF, PNG ou JPG valide.'])
+            //     ]
+                
+            //         ])
             ->add('plateformes', EntityType::class, [
                 'class' => Plateforme::class,
                 'choice_label' => 'nom',
@@ -54,6 +75,7 @@ class UpdateProfilType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'choices' => []
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Jeux;
+use App\Entity\User;
 use App\Entity\Message;
 use App\Form\MessageType;
 use App\Repository\JeuxRepository;
@@ -19,7 +20,7 @@ class JeuxController extends AbstractController
     public function index(): Response
     {
         return $this->render('jeux/index.html.twig', [
-            
+
         ]);
     }
     #[Route('/jeux', name: 'liste_jeux')]

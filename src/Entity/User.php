@@ -57,6 +57,9 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\ManyToMany(targetEntity: Plateforme::class, mappedBy: 'user')]
     private Collection $plateformes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photos = null;
+
 
     public function __construct()
     {
@@ -352,6 +355,18 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         if ($this->plateformes->removeElement($plateforme)) {
             $plateforme->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getPhotos(): ?string
+    {
+        return $this->photos;
+    }
+
+    public function setPhotos(string $photos): static
+    {
+        $this->photos = $photos;
 
         return $this;
     }
