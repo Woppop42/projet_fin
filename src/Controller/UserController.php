@@ -40,6 +40,7 @@ class UserController extends AbstractController
             $user->setPassword($hashedPassword);
             $user->setDateInscription(new \DateTimeImmutable);
             $user->setRoles($roles);
+            $user->setPhotoProfil('manette.jpg');
             $manager->persist($user);
             $manager->flush();
 

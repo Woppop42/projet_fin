@@ -11,20 +11,14 @@
 	<div class="profile-background-color">
 		<div class="container-wrapper">
 			<div class="container col-12 text-center" id="container">
-				<nav class="navbar" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
+				<nav class="navbar" data-bs-theme="dark" style="margin-top: 20px; width: 100%; margin-bottom: 50px;">
 					<div class="container-fluid">
-						<a href="javascript:history.back()">
-							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+						<a class="nav-link active text-dark" href="{{path('app_jeux')}}"><img
+							src="{{ asset('images/JA-01.png')}}" alt="Logo du site" style="width: 150px; height: 75px;">
+						{# <span class="visually-hidden">(current)</span> #}
 						</a>
-						{% if app.user %}
-							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
-						{% endif %}
+
 						<ul class="navbar-nav flex-row">
-							<li class="nav-item me-3">
-								<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
-									<span class="visually-hidden">(current)</span>
-								</a>
-							</li>
 							{% if app.user %}
 								<li class="nav-item me-3">
 									<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
@@ -37,27 +31,34 @@
 							<li class="nav-item me-3">
 								<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
 							</li>
-							<li class="nav-item me-3">
-								<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
-							</li>
+							{% if app.user %}
+								<li class="nav-item me-3">
+									<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+								</li>
+							{% endif %}
 							{% if is_granted('ROLE_ADMIN') %}
 								<li class="nav-item dropdown">
 									<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
 								</li>
 							{% endif %}
 						</ul>
+						{% if app.user %}
+							<li class="nav-item me-3 d-flex">
+								<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}"><img src="{{asset('images/' ~ app.user.photoProfil)}}" alt="Photo de profil" style="width: 50px; height: 50px; border-radius: 50%;"></a>
+							</li>
+						{% endif %}
 					</div>
 				</nav>
 				<h1>Bienvenue
 					{{app.user.pseudo}}</h1>
 				<div class="row justify-content-center">
-				<div class="text-center"><img src="{{asset('images/' ~ user.photoProfil)}}" alt="Photo de profil"></div>
+				<div class="text-center"><img src="{{asset('images/' ~ user.photoProfil)}}" alt="Photo de profil" style="width: 50px; height: 50px; border-radius: 50%;"></div>
 					<div class="col-12">
 						<h2>La liste des jeux auxquels vous jouez :</h2>
 
 						{% for item in jeux %}
 
-							<h3>{{item.nom}}
+							<h3><a href="{{path('fiche_jeux', {id: item.id})}}">{{item.nom}}</a>
 								<a href="{{path('delete_jeux_profile', {id: item.id})}}">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewbox="0 0 16 16">
 										<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>

@@ -29,15 +29,11 @@
 							</a>
 							<ul class="navbar-nav me-auto">
 								<li class="nav-item me-3">
-									<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
+									<a class="nav-link active text-dark" href="{{path('app_jeux')}}"><img src="{{ asset('images/JA_BLANC-01.png')}}" alt="Le logo du site" style="width: 150px; height: 75px;">
 										<span class="visually-hidden">(current)</span>
 									</a>
 								</li>
-									{% if app.user %}
-								<li class="nav-item me-3">
-										<a class="nav-link text-dark" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
-								</li>
-									{% endif %}
+
 								{% if app.user %}
 									<li class="nav-item me-3">
 										<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
@@ -63,7 +59,13 @@
 										<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
 									</li>
 								{% endif %}
+
 							</ul>
+							{% if app.user %}
+								<li class="nav-item me-3 d-flex">
+									<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}"><img src="{{asset('images/' ~ app.user.photoProfil)}}" alt="Photo de profil" style="width: 50px; height: 50px; border-radius: 50%;"></a>
+								</li>
+							{% endif %}
 						</div>
 					</div>
 				</nav>

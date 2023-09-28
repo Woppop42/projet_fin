@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
 .profile-background-color {
   background-color: #685afc;
   height: 100%;
@@ -15,23 +20,22 @@ a {
   width: 80%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Alignement vertical au centre */
-  justify-content: center; /* Alignement horizontal au centre */
+  align-items: center; 
+  justify-content: center; 
   position: relative;
 }
 #back {
   display: flex;
 }
 .sample-image {
-  max-width: 100%; /* Ajuster la largeur pour s'adapter à la disposition */
-  height: auto; /* Hauteur ajustée proportionnellement */
-  margin-bottom: 10px;
+  max-width: 100%; 
+  height: auto; 
 }
 .sample-image-mobile {
-  max-width: 100%; /* Ajuster la largeur pour s'adapter à la disposition */
-  height: auto; /* Hauteur ajustée proportionnellement */
+  max-width: 100%; 
+  height: auto; 
   margin-bottom: 10px;
-  max-height: none; /* Réinitialisation de la hauteur maximale */
+  max-height: none; 
 }
 .hover-container {
   position: relative;
@@ -74,3 +78,19 @@ hr {
   font-size: 10px;
 }
 
+.frontPagePolice {
+  font-size: 20px;
+  color: black;
+}
+
+#titleFrontPage{
+  margin-bottom: 50px;
+}
+
+#sampleBlock {
+  margin-top: 100px;
+}
+
+#titleSample {
+  margin-top: 100px;
+}

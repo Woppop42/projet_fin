@@ -12,26 +12,22 @@
 	<div class="profile-background-color">
 		<div class="container-wrapper" style="height: 100%;">
 			<div class="container col-12 text-center d-flex align-item-center" id="container">
-				<nav class="navbar navbar-expand-lg" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
+								<nav class="navbar navbar-expand-lg" data-bs-theme="dark" style=" margin-bottom: 20px; width: 100%;">
 					<div class="container-fluid">
 						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="navbar-toggler-icon bg-dark text-light"></span>
 						</button>
 						<div class="collapse navbar-collapse" id="navbarColor01">
-							<a href="javascript:history.back()">
+							<a href="javascript:history.back()" id="back">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
 							</a>
 							<ul class="navbar-nav me-auto">
 								<li class="nav-item me-3">
-									<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
+									<a class="nav-link active text-dark" href="{{path('app_jeux')}}"><img src="{{ asset('images/JA_BLANC-01.png')}}" alt="Le logo du site" style="width: 150px; height: 75px;">
 										<span class="visually-hidden">(current)</span>
 									</a>
 								</li>
-																	{% if app.user %}
-								<li class="nav-item me-3">
-										<a class="nav-link text-dark" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
-								</li>
-									{% endif %}
+
 								{% if app.user %}
 									<li class="nav-item me-3">
 										<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
@@ -44,15 +40,26 @@
 								<li class="nav-item me-3">
 									<a class="nav-link text-dark" href="{{path('liste_jeux')}}">Trouver un partenaire</a>
 								</li>
-								<li class="nav-item me-3">
-									<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
-								</li>
+								{% if app.user %}
+
+									<li class="nav-item me-3">
+										<a class="nav-link text-dark" href="{{path('app_messagerie')}}">Messagerie</a>
+									</li>
+
+								{% endif %}
+
 								{% if is_granted('ROLE_ADMIN') %}
 									<li class="nav-item dropdown">
 										<a class="nav-link text-dark" href="{{path('app_admin')}}" aria-expanded="false">BACKOFFICE</a>
 									</li>
 								{% endif %}
+
 							</ul>
+							{% if app.user %}
+								<li class="nav-item me-3 d-flex">
+									<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}"><img src="{{asset('images/' ~ app.user.photoProfil)}}" alt="Photo de profil" style="width: 50px; height: 50px; border-radius: 50%;"></a>
+								</li>
+							{% endif %}
 						</div>
 					</div>
 				</nav>
@@ -106,18 +113,20 @@
 
 					</div>
 					{% if app.user %}
-						<h3 class="text-light">Fais ton annonce</h3>
+						<h3 class="text-dark">Fais ton annonce</h3>
 						{{form_start(form)}}
 						{{form_row(form.titre)}}
 						{{form_row(form.contenu)}}
 						{{form_row(form.Tag)}}
-						<button class="btn btn-success">Publier</button>
+						<button class="btn btn-success mb-3">Publier</button>
 						{{form_end(form)}}
 						{% else %}
 							<p class="text-center">Pour pouvoir chercher des joueurs, <a href="{{path('login')}}">connectez-vous</a> ou <a href="{{path('inscription')}}">inscrivez-vous</a></p>
 					{% endif %}
 
 
+				</div>
+				</div>
 				</div>
 
 

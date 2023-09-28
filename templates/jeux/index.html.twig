@@ -9,8 +9,8 @@
 			overflow-x: hidden; /* Empêche le défilement horizontal */
 		}
 	</style>
-	<div class="container-fluid p-0">
-		<div class="row">
+	<div class="container-fluid p-0 bg-light">
+		<div class="row mb-5">
 			<div class="col-md-5 d-md-flex d-none flex-column">
 				<div class="image-container rounded-3 overflow-hidden">
 					<img src="{{asset('images/frontpage.jpg')}}" alt="" style="max-width: 100%; max-height: 100vh;">
@@ -18,17 +18,14 @@
 			</div>
 
 			<div class="col-md-7">
-				<nav class="navbar bg-secondary" data-bs-theme="dark" style="margin-top: 20px; width: 100%;">
+				<nav class="navbar bg-light" data-bs-theme="dark" style="margin-top: 20px; width: 100%; margin-bottom: 50px;">
 					<div class="container-fluid">
-						{% if app.user %}
-							<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}"><img src="{{asset('images/' ~ app.user.photoProfil)}}" alt="Photo de profil"></a>
-						{% endif %}
+						<a class="nav-link active text-dark" href="{{path('app_jeux')}}"><img
+							src="{{ asset('images/JA-01.png')}}" alt="Logo du site" style="width: 150px; height: 75px;">
+						{# <span class="visually-hidden">(current)</span> #}
+						</a>
+
 						<ul class="navbar-nav flex-row">
-							<li class="nav-item me-3">
-								<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
-									<span class="visually-hidden">(current)</span>
-								</a>
-							</li>
 							{% if app.user %}
 								<li class="nav-item me-3">
 									<a class="nav-link text-dark" href="{{path('logout')}}">Se déconnecter</a>
@@ -52,31 +49,35 @@
 								</li>
 							{% endif %}
 						</ul>
+						{% if app.user %}
+							<li class="nav-item me-3 d-flex">
+								<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}"><img src="{{asset('images/' ~ app.user.photoProfil)}}" alt="Photo de profil" style="width: 50px; height: 50px; border-radius: 50%;"></a>
+							</li>
+						{% endif %}
 					</div>
 				</nav>
 
-				<div class="container text-center">
-					<div class="d-flex justify-content-end">
+				<div class="container text-center mt-5" id="sampleBlock">
+					<div class="d-flex justify-content-start">
 						<div class="text-content">
 							{% for message in app.flashes('success') %}
 								<div class="alert alert-success text-center">{{message}}</div>
 							{% endfor %}
-							<h1 class="text-center text-dark">Rencontre tes futurs camarades de jeux</h1>
-							<p class="text-center text-info"></p>
-							<p>Ce site va te permettre de trouver rapidement des camarades avec qui jouer à tes
+							<h1 class="text-center text-dark mt-3" id="titleFrontPage">Rencontre tes futurs camarades de jeux</h1>
+							<p class="frontPagePolice">Ce site va te permettre de trouver rapidement des camarades avec qui jouer à tes
 								<strong>jeux préférés</strong>.</p>
-							<p>Ce site a pour but d'être simple d'utilisation. Une
+							<p class="frontPagePolice">Ce site a pour but d'être simple d'utilisation. Une
 								<strong>inscription rapide</strong>
 								et te voilà prêt à rechercher tes nouveaux camarades de jeux.</p>
-							<p>Lors de la création de ton message de recherche, tu peux créer des petits mots-clefs afin de signifier rapidement quelles sont tes modalités de jeu, que ce soit l'intensité (<strong>compétitif</strong>,
+							<p class="frontPagePolice">Lors de la création de ton message de recherche, tu peux créer des petits mots-clefs afin de signifier rapidement quelles sont tes modalités de jeu, que ce soit l'intensité (<strong>compétitif</strong>,
 								<strong>occasionnel</strong>, la console sur laquelle tu joues ou encore l'âge des gens avec qui tu veux jouer).</p>
-							<p>Sur ton profil, tu pourras te présenter, y ajouter les jeux auxquels tu joues, tes horaires de jeux. Tu pourras également te présenter en quelque mots et personnaliser ta photo de profil.</p>
-							<p>L'onglet messagerie te permettra de t'organiser rapidement avec tes contacts.</p>
-							<p>Sur ce site, pas de cookies, pas de pubs, tes données personnelles sont entre de bonnes mains. Simplement l'amour du jeu et l'envie de le partager.</p>
-							<p>En espérant que tu y trouves tes futurs camarades et que vous pétiez les scores grâce à votre collaboration.</p>
+							<p class="frontPagePolice">Sur ton profil, tu pourras te présenter, y ajouter les jeux auxquels tu joues, tes horaires de jeux. Tu pourras également te présenter en quelque mots et personnaliser ta photo de profil.</p>
+							<p class="frontPagePolice">L'onglet messagerie te permettra de t'organiser rapidement avec tes contacts.</p>
+							<p class="frontPagePolice">Sur ce site, pas de cookies, pas de pubs, tes données personnelles sont entre de bonnes mains. Simplement l'amour du jeu et l'envie de le partager.</p>
+							<p class="frontPagePolice">En espérant que tu y trouves tes futurs camarades et que vous pétiez les scores grâce à votre collaboration.</p>
 
 							{% if app.user %}
-								<p>
+								<p class="frontPagePolice text-success">
 									Bienvenue
 									{{app.user.pseudo }}!
 								</p>
@@ -89,34 +90,21 @@
 			</div>
 		</div>
 
-		<div class="container row text-center d-none d-md-flex mt-3 justify-content-center">
-			<div class="row text-center">
-				<div class="col">1</div>
-				<div class="col">2</div>
-				<div class="col">3</div>
-			</div>
-			<div class="row">
-				<div class="col">Inscris-toi</div>
-				<div class="col">Cherche tes jeux et trouve ton crew</div>
-				<div class="col">Passe les meilleurs games de ta vie</div>
-			</div>
-		</div>
+		{# <div class="container d-md-none text-center mt-3">
+							<div class="row">
+								<div class="col">1</div>
+								<div class="col">2</div>
+								<div class="col">3</div>
+							</div>
+							<div class="row">
+								<div class="col">Inscris-toi</div>
+								<div class="col">Cherche tes jeux et trouve ton crew</div>
+								<div class="col">Passe les meilleurs games de ta vie</div>
+							</div>
+						</div> #}
 
-		<div class="container d-md-none text-center mt-3">
-			<div class="row">
-				<div class="col">1</div>
-				<div class="col">2</div>
-				<div class="col">3</div>
-			</div>
-			<div class="row">
-				<div class="col">Inscris-toi</div>
-				<div class="col">Cherche tes jeux et trouve ton crew</div>
-				<div class="col">Passe les meilleurs games de ta vie</div>
-			</div>
-		</div>
-
-		<div class="container text-center">
-			<h3 class="m-3">Un échantillon des jeux sur lesquels tu peux trouver des camarades</h3>
+		<div class="container text-center mt-3">
+			<h3 class="m-3" id="titleSample">Un échantillon des jeux sur lesquels tu peux trouver des camarades</h3>
 
 			<div class="row justify-content-center d-none d-md-flex">
 				<div class="col-md-6">

@@ -13,13 +13,11 @@
 							<a href="javascript:history.back()">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
 							</a>
-							{% if app.user %}
-								<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}">Profil</a>
-							{% endif %}
 							<ul class="navbar-nav me-auto">
 								<li class="nav-item me-3">
-									<a class="nav-link active text-dark" href="{{path('app_jeux')}}">Home
-										<span class="visually-hidden">(current)</span>
+									<a class="nav-link active text-dark" href="{{path('app_jeux')}}"><img
+										src="{{ asset('images/JA-01.png')}}" alt="Logo du site" style="width: 150px; height: 65px;">
+									{# <span class="visually-hidden">(current)</span> #}
 									</a>
 								</li>
 								{% if app.user %}
@@ -43,6 +41,9 @@
 									</li>
 								{% endif %}
 							</ul>
+							{% if app.user %}
+								<a class="navbar-brand" href="{{path('profil_perso', {id: app.user.id})}}"><img src="{{asset('images/' ~ app.user.photoProfil)}}" alt="Photo de profil" style="width: 50px; height: 50px; border-radius: 50%;"></a>
+							{% endif %}
 						</div>
 					</div>
 				</nav>
